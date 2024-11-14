@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial - GymBD</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+    <header class="bg-primary text-white p-3">
+        <h1 class="text-center">Bem-vindo ao GymBD</h1>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">GymBD</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/pagina-aluno">Alunos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/pagina-instrutores">instrutores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/pagina-curso">Cursos</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container mt-5">
+        <section class="text-center mb-4">
+            <h2>Sobre o GymBD</h2>
+            <p>O GymBD é um sistema de gestão para academias, facilitando o controle de alunos, instrutoreses e cursos de forma prática e organizada.</p>
+        </section>
+
+        <section class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Gerenciar Alunos</h3>
+                        <p class="card-text">Cadastre, atualize e visualize informações dos alunos matriculados.</p>
+                        <a href="/pagina-aluno" class="btn btn-primary">Acessar Alunos</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Gerenciar instrutores</h3>
+                        <p class="card-text">Gerencie o cadastro e as informações dos instrutores da academia.</p>
+                        <a href="/pagina-instrutores" class="btn btn-primary">Acessar instrutores</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Gerenciar Cursos</h3>
+                        <p class="card-text">Cadastre novos cursos e mantenha as informações atualizadas.</p>
+                        <a href="/pagina-curso" class="btn btn-primary">Acessar Cursos</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-white text-center p-3 mt-5">
+        <p>&copy; 2024 GymBD. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
