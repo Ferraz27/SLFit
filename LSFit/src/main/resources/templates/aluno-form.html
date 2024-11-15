@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cadastro de Aluno</title>
+</head>
+<body>
+    <h1>Cadastro de Aluno</h1>
+    <form action="/alunos/salvar" method="post">
+        <label for="cpfPessoa">CPF:</label>
+        <input type="text" id="cpfPessoa" name="cpfPessoa" required><br>
+
+        <label for="nomePessoa">Nome:</label>
+        <input type="text" id="nomePessoa" name="nomePessoa" required><br>
+
+        <label for="telefone1Pessoa">Telefone 1:</label>
+        <input type="text" id="telefone1Pessoa" name="telefone1Pessoa"><br>
+
+        <label for="telefone2Pessoa">Telefone 2:</label>
+        <input type="text" id="telefone2Pessoa" name="telefone2Pessoa"><br>
+
+		<label for="cep">cep:</label>
+        <input type="text" id="cep" name="cep"><br>
+
+		<label for="bairro">bairro:</label>
+        <input type="text" id="bairro" name="bairro"><br>
+
+		<label for="rua">rua:</label>
+        <input type="text" id="rua" name="rua"><br>
+
+		<label for="numero">numero:</label>
+        <input type="text" id="numero" name="numero"><br>
+
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>

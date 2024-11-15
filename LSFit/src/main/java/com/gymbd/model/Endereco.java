@@ -6,13 +6,15 @@ import jakarta.persistence.*;
 @Table(name = "enderecos")
 public class Endereco {
 
+    
+	
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fpk_id_pessoa")
+    private Pessoa pessoa;
+    
     @Id
     @Column(name = "fpk_id_pessoa")
     private Integer fpkIdPessoa;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fpk_id_pessoa", insertable = false, updatable = false)
-    private Pessoa pessoa;
 
     @Column(name = "rua_endereco")
     private String rua;

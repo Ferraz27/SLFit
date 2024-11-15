@@ -1,6 +1,7 @@
 package com.gymbd.service;
 
 import com.gymbd.model.Aluno;
+import com.gymbd.model.Pessoa;
 import com.gymbd.repository.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,10 @@ public class AlunoService {
     public List<Aluno> listarAlunos() {
         return alunoRepository.listarTodosAlunos();
         
+    }
+    
+    public Aluno salvarAluno(Aluno aluno) {
+        return alunoRepository.save(aluno);
     }
 }
 

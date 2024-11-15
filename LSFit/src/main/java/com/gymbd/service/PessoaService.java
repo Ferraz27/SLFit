@@ -16,4 +16,18 @@ public class PessoaService {
     	System.out.println(pessoaRepository.listarTodasPessoas());
         return pessoaRepository.listarTodasPessoas(); // Busca todos os Instrutors do banco
     }
+    
+
+
+    public Pessoa salvarPessoa(Pessoa pessoa) {
+        return pessoaRepository.save(pessoa);
+    }
+    
+    public Integer	 getNextPessoaId() {
+        Integer maxId = pessoaRepository.findMaxId();
+        if (maxId == null) {
+            return 1; // Se não houver registros, começa com 1
+        }
+        return maxId + 1; // Retorna o próximo ID
+    }
 }

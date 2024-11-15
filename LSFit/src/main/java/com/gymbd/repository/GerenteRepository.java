@@ -1,5 +1,5 @@
 package com.gymbd.repository;
 
-public class GerenteRepository {
+public interface GerenteRepository {
 
 }

@@ -16,5 +16,9 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Integer> {
 			"LEFT JOIN gerente g on p.pk_id_pessoa = g.fpk_id_gerente " +
             "LEFT JOIN enderecos e ON p.pk_id_pessoa = e.fpk_id_pessoa", nativeQuery = true)
 	List<Pessoa> listarTodasPessoas();
+	
+	@Query("SELECT MAX(p.pkIdPessoa) FROM Pessoa p")
+    Integer findMaxId();
+	
 }
 

@@ -32,6 +32,7 @@ public class Pessoa {
 
     @OneToOne(mappedBy = "pessoa",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Endereco endereco;
+    
 
     // Getters e setters
     public Integer getPkIdPessoa() {
@@ -82,4 +83,5 @@ public class Pessoa {
         this.endereco = endereco;
         endereco.setPessoa(this); // Configura a referência bidirecional
     }
+    
 }
