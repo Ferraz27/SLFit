@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Table;
@@ -29,6 +30,9 @@ public class Exercicio {
 	@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_id_maquina", insertable = false, updatable = false)
     private Maquina maquina;
+	
+	@OneToOne(mappedBy = "exercicio",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private FichaDeExercicio fichaDeExercicio;
 
 	
 	
