@@ -1,44 +1,75 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Criar Ficha de Exercício</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Ficha de Exercício - LSFit</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Criar Ficha de Exercício</h1>
+    <header class="bg-primary text-white p-3">
+        <h1 class="text-center">Criar Ficha de Exercício</h1>
+    </header>
 
-    <form th:action="@{/ficha-exercicio/salvar}" method="post">
-        <!-- Campo para selecionar o aluno -->
-        <div>
-            <label for="alunoId">Aluno:</label>
-            <select id="alunoId" name="alunoId" required>
-                <option value="" disabled selected>Selecione um aluno</option>
-                <option th:each="aluno : ${alunos}" th:value="${aluno.pkIdPessoa}" th:text="${aluno.nomePessoa}"></option>
-            </select>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">LSFit</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/pagina-pessoas">Pessoas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/pagina-instrutores">Instrutores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/pagina-curso">Cursos</a>
+                </li>
+            </ul>
         </div>
+    </nav>
 
-        <!-- Campo para selecionar o instrutor -->
-        <div>
-            <label for="instrutorId">Instrutor:</label>
-            <select id="instrutorId" name="instrutorId" required>
-                <option value="" disabled selected>Selecione um instrutor</option>
-                <option th:each="instrutor : ${instrutores}" th:value="${instrutor.pkIdPessoa}" th:text="${instrutor.nomePessoa}"></option>
-            </select>
-        </div>
+    <main class="container mt-5">
+        <form th:action="@{/fichaExercicio/salvar}" method="post" class="bg-light p-4 rounded shadow">
+            <div class="form-group">
+                <label for="alunoId">Aluno:</label>
+                <select id="alunoId" name="alunoId" class="form-control" required>
+                    <option value="" disabled selected>Selecione um aluno</option>
+                    <option th:each="aluno : ${alunos}" th:value="${aluno.pkIdPessoa}" th:text="${aluno.nomePessoa}"></option>
+                </select>
+            </div>
 
-        <!-- Campo para selecionar os exercícios -->
-        <div>
-            <label for="exercicios">Exercícios:</label>
-            <select id="exercicios" name="exercicios" multiple required>
-                <option value="" disabled>Selecione os exercícios</option>
-                <option th:each="exercicio : ${exercicios}" th:value="${exercicio.nomeExercicio}" th:text="${exercicio.nomeExercicio}"></option>
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="instrutorId">Instrutor:</label>
+                <select id="instrutorId" name="instrutorId" class="form-control" required>
+                    <option value="" disabled selected>Selecione um instrutor</option>
+                    <option th:each="instrutor : ${instrutores}" th:value="${instrutor.pkIdPessoa}" th:text="${instrutor.nomePessoa}"></option>
+                </select>
+            </div>
 
-        <!-- Botões de submissão -->
-        <div>
-            <button type="submit">Criar Ficha</button>
-            <a href="/ficha-exercicio/listar">Voltar para a lista de fichas</a>
-        </div>
-    </form>
+            <div class="form-group">
+                <label for="exercicios">Exercícios:</label>
+                <select id="exercicios" name="exercicios" class="form-control" multiple required>
+                    <option value="" disabled>Selecione os exercícios</option>
+                    <option th:each="exercicio : ${exercicios}" th:value="${exercicio.nomeExercicio}" th:text="${exercicio.nomeExercicio}"></option>
+                </select>
+            </div>
+
+            <div class="form-group d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Criar Ficha</button>
+                <a href="/ficha-exercicio/listar" class="btn btn-secondary">Voltar para a Lista</a>
+            </div>
+        </form>
+    </main>
+
+    <footer class="bg-dark text-white text-center p-3 mt-5">
+        <p>&copy; 2024 LSFit. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

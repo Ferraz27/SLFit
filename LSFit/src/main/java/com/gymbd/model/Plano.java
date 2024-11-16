@@ -16,17 +16,51 @@ import jakarta.persistence.Table;
 public class Plano {
 	
 	@Id
-	@Column(name="pk_id_plano")
-	private Integer pkIdPlano;
+	@Column(name="fpk_id_plano")
+	private Integer fpkIdPlano;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fpk_id_plano")
+    private Aluno aluno;
 	
 	@Column(name="preco")
 	private double preco;
 	
+	public Integer getFpkIdPlano() {
+		return fpkIdPlano;
+	}
+
+	public void setFpkIdPlano(Integer fpkIdPlano) {
+		this.fpkIdPlano = fpkIdPlano;
+	}
+
+	public double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(double preco) {
+		this.preco = preco;
+	}
+
+	public Integer getDuracaoEmMeses() {
+		return duracaoEmMeses;
+	}
+
+	public void setDuracaoEmMeses(Integer duracaoEmMeses) {
+		this.duracaoEmMeses = duracaoEmMeses;
+	}
+
+	public Aluno getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
+
 	@Column(name="duracao_meses")
 	private Integer duracaoEmMeses;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fpk_id_aluno", insertable = false, updatable = false)
-    private Aluno aluno;
+	
 
 }

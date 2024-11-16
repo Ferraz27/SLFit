@@ -24,9 +24,11 @@ import com.gymbd.service.GerenteService;
 import com.gymbd.model.Instrutor;
 import com.gymbd.model.Maquina;
 import com.gymbd.model.Pessoa;
+import com.gymbd.model.Plano;
 import com.gymbd.model.Unidade;
 import com.gymbd.service.InstrutorService;
 import com.gymbd.service.PessoaService;
+import com.gymbd.service.PlanoService;
 import com.gymbd.service.UnidadeService;
 import com.gymbd.service.MaquinaService;
 
@@ -53,6 +55,8 @@ public class AlunoController {
     private ExercicioService exercicioService;
 	@Autowired
     private FichaDeExercicioService fichaDeExercicioService;
+	@Autowired
+    private PlanoService planoService;
 	
 	
     @GetMapping("/home")
@@ -89,7 +93,9 @@ public class AlunoController {
     public String salvarInstrutor(@ModelAttribute Instrutor instrutor, @ModelAttribute Endereco endereco) {
     	instrutorService.salvarInstrutor(instrutor);
     	endereco.setFpkIdPessoa(instrutor.getPkIdPessoa());
+    	
         enderecoService.salvarEndereco(endereco);
+        
         
         
         return "redirect:/instrutores";
@@ -110,13 +116,15 @@ public class AlunoController {
     
     
     @PostMapping("aluno/salvar")
-    public String salvarAluno(@ModelAttribute Aluno aluno, @ModelAttribute Endereco endereco) {
+    public String salvarAluno(@ModelAttribute Aluno aluno, @ModelAttribute Endereco endereco, @ModelAttribute Plano plano) {
     	alunoService.salvarAluno(aluno);
     	endereco.setFpkIdPessoa(aluno.getPkIdPessoa());
+    	plano.setFpkIdPlano(aluno.getPkIdPessoa());
         enderecoService.salvarEndereco(endereco);
+        planoService.salvarPlano(plano);
         
         
-        return "redirect:/pagina-pessoas";
+        return "redirect:/Read/ReadPessoas";
     }
 
     
@@ -133,7 +141,7 @@ public class AlunoController {
         unidadeService.salvarUnidade(unidade);
         
         
-        return "redirect:/pagina-instrutores";
+        return "redirect:/unidades";
     }
 
     
@@ -222,7 +230,7 @@ public class AlunoController {
         return "redirect:/exercicios";  // Redireciona para a página de exercícios
     }
  // Página de criação da ficha de exercício
-    @GetMapping("/ficha-exercicio/form")
+    @GetMapping("/fichaExercicio/form")
     public String mostrarFormularioFichaDeExercicio(Model model) {
         model.addAttribute("alunos", alunoService.listarAlunos());
         model.addAttribute("instrutores", instrutorService.listarInstrutores());
@@ -232,33 +240,20 @@ public class AlunoController {
     }
 
     // Salvando a ficha de exercício
-    @PostMapping("/ficha-exercicio/salvar")
+    @PostMapping("/fichaExercicio/salvar")
     public String salvarFichaDeExercicio(@ModelAttribute FichaDeExercicio fichaDeExercicio,
                                           @RequestParam Integer alunoId,
                                           @RequestParam Integer instrutorId,
                                           @RequestParam List<String> exercicios) {
         fichaDeExercicioService.criarFichaDeExercicio(alunoId, instrutorId, exercicios);
-        return "redirect:/ficha-exercicio/success";
+        return "redirect:/home";
     }
 
     // Exibir exercícios de uma ficha
-    @GetMapping("/ficha-exercicio/{fichaId}/exercicios")
-    public String mostrarExercicios(@PathVariable("fichaId") Integer fichaId, Model model) {
-        List<Exercicio> exercicios = fichaDeExercicioService.getExerciciosByFichaId(fichaId);
-        model.addAttribute("exercicios", exercicios);
-        return "FichaExercicioExercicios";
-    }
     
-    @GetMapping("/ficha-exercicio/{fichaId}")
-    public String visualizarFichaDeExercicio(@PathVariable("fichaId") Integer fichaId, Model model) {
-        FichaDeExercicio fichaDeExercicio = fichaDeExercicioService.getFichaDeExercicioById(fichaId);
-        List<Exercicio> exercicios = fichaDeExercicioService.getExerciciosByFichaId(fichaId);
-
-        model.addAttribute("fichaDeExercicio", fichaDeExercicio);
-        model.addAttribute("exercicios", exercicios);
-
-        return "FichaExercicioExercicios";  // Nome do template HTML
-    }
-
+    
+    
+    
+    
     
 }

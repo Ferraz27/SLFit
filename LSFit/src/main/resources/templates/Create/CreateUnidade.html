@@ -1,30 +1,81 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Cadastro de Unidade</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Unidade - LSFit</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Cadastro de Unidade</h1>
-    <form action="/unidade/salvar" method="post">
-        <label for="telefone1Unidade">Telefone 1:</label>
-        <input type="text" id="telefone1Unidade" name="telefone1Unidade"><br>
+    <header class="bg-primary text-white p-3">
+        <h1 class="text-center">Cadastro de Unidade</h1>
+    </header>
 
-        <label for="telefone2Unidade">Telefone 2:</label>
-        <input type="text" id="telefone2Unidade" name="telefone2Unidade"><br>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">LSFit</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/pagina-pessoas">Pessoas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/pagina-instrutores">Instrutores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/pagina-curso">Cursos</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-		<label for="cep">cep:</label>
-        <input type="text" id="cep" name="cep"><br>
+    <main class="container mt-5">
+        <form action="/unidade/salvar" method="post" class="bg-light p-4 rounded shadow">
+            <div class="form-group">
+                <label for="telefone1Unidade">Telefone 1:</label>
+                <input type="text" id="telefone1Unidade" name="telefone1Unidade" class="form-control">
+            </div>
 
-		<label for="bairro">bairro:</label>
-        <input type="text" id="bairro" name="bairro"><br>
+            <div class="form-group">
+                <label for="telefone2Unidade">Telefone 2:</label>
+                <input type="text" id="telefone2Unidade" name="telefone2Unidade" class="form-control">
+            </div>
 
-		<label for="rua">rua:</label>
-        <input type="text" id="rua" name="rua"><br>
+            <div class="form-group">
+                <label for="cep">CEP:</label>
+                <input type="text" id="cep" name="cep" class="form-control">
+            </div>
 
-		<label for="numero">numero:</label>
-        <input type="text" id="numero" name="numero"><br>
+            <div class="form-group">
+                <label for="bairro">Bairro:</label>
+                <input type="text" id="bairro" name="bairro" class="form-control">
+            </div>
 
-        <button type="submit">Salvar</button>
-    </form>
+            <div class="form-group">
+                <label for="rua">Rua:</label>
+                <input type="text" id="rua" name="rua" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="numero">Número:</label>
+                <input type="text" id="numero" name="numero" class="form-control">
+            </div>
+
+            <div class="form-group d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <a href="/unidade/listar" class="btn btn-secondary">Voltar para a Lista</a>
+            </div>
+        </form>
+    </main>
+
+    <footer class="bg-dark text-white text-center p-3 mt-5">
+        <p>&copy; 2024 LSFit. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

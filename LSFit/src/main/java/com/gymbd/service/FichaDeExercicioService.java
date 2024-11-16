@@ -28,6 +28,8 @@ public class FichaDeExercicioService {
     
     @Autowired
     private ExercicioRepository exercicioRepository;
+    
+    
 
     // Criação de uma nova ficha de exercício, associando aluno, instrutor e exercícios
     @Transactional
@@ -67,4 +69,6 @@ public class FichaDeExercicioService {
     public List<FichaDeExercicio> getFichasByAlunoAndInstrutor(Integer alunoId, Integer instrutorId) {
         return fichaDeExercicioRepository.findByAlunoAndInstrutor(alunoId, instrutorId);
     }
+    
+    
 }

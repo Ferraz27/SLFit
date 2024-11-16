@@ -1,35 +1,74 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar Exercício</title>
+    <title>Criar Exercício - LSFit</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Criar Novo Exercício</h1>
-    <form action="/exercicio/salvar" method="post">
-        <label for="nomeExercicio">Nome do Exercício:</label>
-        <input type="text" id="nomeExercicio" name="nomeExercicio" required><br><br>
+    <header class="bg-primary text-white p-3">
+        <h1 class="text-center">Criar Novo Exercício</h1>
+    </header>
 
-        <label for="series">Séries:</label>
-        <input type="number" id="series" name="series" required><br><br>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">LSFit</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/pagina-pessoas">Pessoas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/pagina-instrutores">Instrutores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/pagina-curso">Cursos</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-        <label for="repeticoes">Repetições:</label>
-        <input type="number" id="repeticoes" name="numeroDeRepeticoes" required><br><br>
+    <main class="container mt-5">
+        <form action="/exercicio/salvar" method="post" class="bg-light p-4 rounded shadow">
+            <div class="form-group">
+                <label for="nomeExercicio">Nome do Exercício:</label>
+                <input type="text" id="nomeExercicio" name="nomeExercicio" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="series">Séries:</label>
+                <input type="number" id="series" name="series" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="repeticoes">Repetições:</label>
+                <input type="number" id="repeticoes" name="numeroDeRepeticoes" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="tempoDescanso">Tempo de Descanso (em segundos):</label>
+                <input type="number" id="tempoDescanso" name="tempDescanso" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="maquina">Máquina:</label>
+                <select name="maquinaId" id="maquina" class="form-control">
+                    <option value="" disabled selected>Selecione a Máquina</option>
+                    <!-- Exibe as máquinas disponíveis -->
+                    <th:block th:each="maquina : ${maquinas}">
+                        <option th:value="${maquina.pkIdMaquina}" th:text="${maquina.nomeMaquina}"></option>
+                    </th:block>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Salvar Exercício</button>
+        </form>
+    </main>
 
-		<label for="tempoDescanso">Tempo de Descanso:</label>
-        <input type="number" id="tempoDescanso" name="tempDescanso" required><br><br>
-		
-        <label for="maquina">Máquina:</label>
-        <select name="maquinaId" id="maquina">
-            <option value="" disabled selected>Selecione a Máquina</option>
-            <!-- Exibe as máquinas disponíveis -->
-            <th:block th:each="maquina : ${maquinas}">
-                <option th:value="${maquina.pkIdMaquina}" th:text="${maquina.nomeMaquina}"></option>
-            </th:block>
-        </select><br><br>
+    <footer class="bg-dark text-white text-center p-3 mt-5">
+        <p>&copy; 2024 LSFit. Todos os direitos reservados.</p>
+    </footer>
 
-        <button type="submit">Salvar Exercício</button>
-    </form>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
