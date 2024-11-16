@@ -31,7 +31,7 @@ public class Unidade {
     private String telefone2Unidade;
     
 	@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_id_gerente", insertable = false, updatable = false)
+    @JoinColumn(name = "fk_id_gerente")
 	private Gerente gerente;
 
     public Integer getPkIdUnidade() {
@@ -95,8 +95,9 @@ public class Unidade {
 	}
 
 	public void setGerente(Gerente gerente) {
-		this.gerente = gerente;
+	    this.gerente = gerente;
 	}
+
 
 	
 	

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Exercícios - GymBD</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<header class="bg-primary text-white p-3">
+    <h1 class="text-center">Lista de Exercícios</h1>
+</header>
+
+<main class="container mt-5">
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nome do Exercício</th>
+                    <th>Séries</th>
+                    <th>Repetições</th>
+                    <th>Nome da Máquina</th>
+                    <th>Tempo de Descanso (segundos)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="exercicio : ${exercicios}">
+                    <td th:text="${exercicio.nomeExercicio}"></td> <!-- Nome do Exercício -->
+                    <td th:text="${exercicio.series}"></td> <!-- Séries -->
+                    <td th:text="${exercicio.numeroDeRepeticoes}"></td> <!-- Repetições -->
+                    <td th:text="${exercicio.maquina.nomeMaquina}"></td> <!-- Nome da Máquina -->
+                    <td th:text="${exercicio.tempoDescanso}"></td> <!-- Tempo de Descanso -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<footer class="bg-dark text-white text-center p-3 mt-5">
+    <p>&copy; 2024 GymBD. Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>

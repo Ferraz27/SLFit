@@ -24,5 +24,13 @@ public class MaquinaService {
     public  List<Maquina> listarMaquinas() {
         return maquinaRepository.listarTodasMaquinas(); // Busca todos os Instrutors do banco
     }
+    
+    public Maquina buscarMaquinaPorId(Integer id) {
+        return maquinaRepository.buscarMaquinaPorId(id);  // Chama o método do Repository
+    }
+    
+    public List<Maquina> listarMaquinasEExercicios() {
+        return maquinaRepository.buscarMaquinasEExercicios();  // Chama o repositório para fazer a consulta
+    }
 }
 

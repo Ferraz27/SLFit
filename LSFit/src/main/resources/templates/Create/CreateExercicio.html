@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Exercício</title>
+</head>
+<body>
+    <h1>Criar Novo Exercício</h1>
+    <form action="/exercicio/salvar" method="post">
+        <label for="nomeExercicio">Nome do Exercício:</label>
+        <input type="text" id="nomeExercicio" name="nomeExercicio" required><br><br>
+
+        <label for="series">Séries:</label>
+        <input type="number" id="series" name="series" required><br><br>
+
+        <label for="repeticoes">Repetições:</label>
+        <input type="number" id="repeticoes" name="numeroDeRepeticoes" required><br><br>
+
+		<label for="tempoDescanso">Tempo de Descanso:</label>
+        <input type="number" id="tempoDescanso" name="tempDescanso" required><br><br>
+		
+        <label for="maquina">Máquina:</label>
+        <select name="maquinaId" id="maquina">
+            <option value="" disabled selected>Selecione a Máquina</option>
+            <!-- Exibe as máquinas disponíveis -->
+            <th:block th:each="maquina : ${maquinas}">
+                <option th:value="${maquina.pkIdMaquina}" th:text="${maquina.nomeMaquina}"></option>
+            </th:block>
+        </select><br><br>
+
+        <button type="submit">Salvar Exercício</button>
+    </form>
+</body>
+</html>

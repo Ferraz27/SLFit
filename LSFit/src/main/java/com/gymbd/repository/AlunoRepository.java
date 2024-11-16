@@ -9,6 +9,9 @@ import java.util.List;
 @Repository
 public interface AlunoRepository extends JpaRepository<Aluno, Integer> {
 
-    @Query(value = "SELECT * FROM aluno", nativeQuery = true)
+	@Query(value = "SELECT *" +
+            "FROM pessoa p " +
+			"JOIN aluno a on p.pk_id_pessoa = a.fpk_id_aluno " +
+            "JOIN enderecos e on e.fpk_id_pessoa = p.pk_id_pessoa", nativeQuery = true)
     List<Aluno> listarTodosAlunos();
 }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Visualizar Ficha de Exercício</title>
+</head>
+<body>
+    <h1>Detalhes da Ficha de Exercício</h1>
+
+    <div>
+        <h2>Aluno</h2>
+        <p>Nome: <span th:text="${fichaDeExercicio.aluno.nomePessoa}"></span></p>
+        <p>Telefone: <span th:text="${fichaDeExercicio.aluno.telefone1Pessoa}"></span></p>
+    </div>
+
+    <div>
+        <h2>Instrutor</h2>
+        <p>Nome: <span th:text="${fichaDeExercicio.instrutor.nomePessoa}"></span></p>
+        <p>Salário: <span th:text="${fichaDeExercicio.instrutor.salarioInstrutor}"></span></p>
+    </div>
+
+    <div>
+        <h2>Exercícios</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome do Exercício</th>
+                    <th>Séries</th>
+                    <th>Repetições</th>
+                    <th>Tempo de Descanso (s)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="exercicio : ${exercicios}">
+                    <td th:text="${exercicio.nomeExercicio}"></td>
+                    <td th:text="${exercicio.series}"></td>
+                    <td th:text="${exercicio.numeroDeRepeticoes}"></td>
+                    <td th:text="${exercicio.tempoDescanso}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a href="/ficha-exercicio/form">Voltar para o Formulário</a>
+
+</body>
+</html>

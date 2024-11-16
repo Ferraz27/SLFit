@@ -24,5 +24,9 @@ public class UnidadeService {
         return unidadeRepository.listarTodosUnidades();
         
     }
+    
+    public Unidade buscarUnidadePorId(Integer id) {
+        return unidadeRepository.buscarPorId(id);
+    }
 }
 

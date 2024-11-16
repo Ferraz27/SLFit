@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Criar Ficha de Exercício</title>
+</head>
+<body>
+    <h1>Criar Ficha de Exercício</h1>
+
+    <form th:action="@{/ficha-exercicio/salvar}" method="post">
+        <!-- Campo para selecionar o aluno -->
+        <div>
+            <label for="alunoId">Aluno:</label>
+            <select id="alunoId" name="alunoId" required>
+                <option value="" disabled selected>Selecione um aluno</option>
+                <option th:each="aluno : ${alunos}" th:value="${aluno.pkIdPessoa}" th:text="${aluno.nomePessoa}"></option>
+            </select>
+        </div>
+
+        <!-- Campo para selecionar o instrutor -->
+        <div>
+            <label for="instrutorId">Instrutor:</label>
+            <select id="instrutorId" name="instrutorId" required>
+                <option value="" disabled selected>Selecione um instrutor</option>
+                <option th:each="instrutor : ${instrutores}" th:value="${instrutor.pkIdPessoa}" th:text="${instrutor.nomePessoa}"></option>
+            </select>
+        </div>
+
+        <!-- Campo para selecionar os exercícios -->
+        <div>
+            <label for="exercicios">Exercícios:</label>
+            <select id="exercicios" name="exercicios" multiple required>
+                <option value="" disabled>Selecione os exercícios</option>
+                <option th:each="exercicio : ${exercicios}" th:value="${exercicio.nomeExercicio}" th:text="${exercicio.nomeExercicio}"></option>
+            </select>
+        </div>
+
+        <!-- Botões de submissão -->
+        <div>
+            <button type="submit">Criar Ficha</button>
+            <a href="/ficha-exercicio/listar">Voltar para a lista de fichas</a>
+        </div>
+    </form>
+</body>
+</html>
