@@ -1,27 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Visualizar Ficha de Exercício</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Ficha de Exercício - GymBD</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Detalhes da Ficha de Exercício</h1>
 
-    <div>
+<header class="bg-primary text-white p-3">
+    <h1 class="text-center">Detalhes da Ficha de Exercício</h1>
+</header>
+
+<main class="container mt-5">
+    <!-- Aluno -->
+    <div class="mb-4">
         <h2>Aluno</h2>
-        <p>Nome: <span th:text="${fichaDeExercicio.aluno.nomePessoa}"></span></p>
-        <p>Telefone: <span th:text="${fichaDeExercicio.aluno.telefone1Pessoa}"></span></p>
+        <p><strong>Nome:</strong> <span th:text="${fichaDeExercicio.aluno.nomePessoa}"></span></p>
+        <p><strong>Telefone:</strong> <span th:text="${fichaDeExercicio.aluno.telefone1Pessoa}"></span></p>
     </div>
 
-    <div>
+    <!-- Instrutor -->
+    <div class="mb-4">
         <h2>Instrutor</h2>
-        <p>Nome: <span th:text="${fichaDeExercicio.instrutor.nomePessoa}"></span></p>
-        <p>Salário: <span th:text="${fichaDeExercicio.instrutor.salarioInstrutor}"></span></p>
+        <p><strong>Nome:</strong> <span th:text="${fichaDeExercicio.instrutor.nomePessoa}"></span></p>
+        <p><strong>Salário:</strong> <span th:text="${fichaDeExercicio.instrutor.salarioInstrutor}"></span></p>
     </div>
 
-    <div>
+    <!-- Exercícios -->
+    <div class="mb-4">
         <h2>Exercícios</h2>
-        <table>
-            <thead>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
                 <tr>
                     <th>Nome do Exercício</th>
                     <th>Séries</th>
@@ -40,7 +50,12 @@
         </table>
     </div>
 
-    <a href="/ficha-exercicio/form">Voltar para o Formulário</a>
+    <a href="/ficha-exercicio/form" class="btn btn-secondary">Voltar para o Formulário</a>
+</main>
+
+<footer class="bg-dark text-white text-center p-3 mt-5">
+    <p>&copy; 2024 GymBD. Todos os direitos reservados.</p>
+</footer>
 
 </body>
 </html>

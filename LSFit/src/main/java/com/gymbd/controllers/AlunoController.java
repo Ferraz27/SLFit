@@ -107,6 +107,12 @@ public class AlunoController {
         return "Create/CreateInstrutor";
     }
     
+    @GetMapping("/instrutor/deletar/{id}")
+    public String deletarInstrutor(@PathVariable Integer id) {
+        instrutorService.deletarInstrutor(id);
+        return "redirect:/instrutores"; // Redireciona para a lista de instrutores
+    }
+    
     @GetMapping("/alunos")
     public String paginaAluno(Model model) {
         List<Aluno> alunos = alunoService.listarAlunos();
@@ -132,6 +138,14 @@ public class AlunoController {
     public String mostrarFormularioAluno() {
         return "Create/CreateAluno";
     }
+    
+    @GetMapping("/aluno/deletar/{id}")
+    public String deletarAluno(@PathVariable Integer id) {
+        alunoService.deletarAluno(id);
+        return "redirect:/alunos"; // Redireciona para a lista de alunos
+    }
+    
+    
     
     
     
@@ -248,7 +262,21 @@ public class AlunoController {
         fichaDeExercicioService.criarFichaDeExercicio(alunoId, instrutorId, exercicios);
         return "redirect:/home";
     }
+    
+    @GetMapping("/fichas")
+    public String listarFichasDeExercicio(Model model) {
+        List<FichaDeExercicio> fichas = fichaDeExercicioService.listarFichasDeExercicio();
+        model.addAttribute("fichas", fichas);
+        return "Read/ReadFichas";  // Página que lista as fichas (nome da view)
+    }
 
+    // Exibe os detalhes de uma ficha de exercício específica
+    @GetMapping("/ficha/{id}")
+    public String detalhesFichaDeExercicio(@PathVariable Integer id, Model model) {
+        FichaDeExercicio fichaDeExercicio = fichaDeExercicioService.buscarFichaDeExercicioDetalhada(id);
+        model.addAttribute("fichaDeExercicio", fichaDeExercicio);
+        return "Read/ReadDetalhesFichaDeExercicio";  // Página que mostra os detalhes da ficha (nome da view)
+    }
     // Exibir exercícios de uma ficha
     
     

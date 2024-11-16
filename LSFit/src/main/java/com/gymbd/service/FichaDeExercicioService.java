@@ -70,5 +70,13 @@ public class FichaDeExercicioService {
         return fichaDeExercicioRepository.findByAlunoAndInstrutor(alunoId, instrutorId);
     }
     
+    public List<FichaDeExercicio> listarFichasDeExercicio() {
+        return fichaDeExercicioRepository.findAllFichaDeExercicio();
+    }
+
+    // Método para buscar uma ficha de exercício detalhada
+    public FichaDeExercicio buscarFichaDeExercicioDetalhada(Integer id) {
+        return fichaDeExercicioRepository.findFichaDeExercicioDetalhada(id);
+    }
     
 }

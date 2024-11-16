@@ -20,6 +20,22 @@ public class Aluno extends Pessoa {
 	@OneToOne(mappedBy = "aluno",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Plano plano;
 	
+	public Plano getPlano() {
+		return plano;
+	}
+
+	public void setPlano(Plano plano) {
+		this.plano = plano;
+	}
+
+	public FichaDeExercicio getFichaDeExercicio() {
+		return fichaDeExercicio;
+	}
+
+	public void setFichaDeExercicio(FichaDeExercicio fichaDeExercicio) {
+		this.fichaDeExercicio = fichaDeExercicio;
+	}
+
 	@OneToOne(mappedBy = "aluno",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private FichaDeExercicio fichaDeExercicio;
 }

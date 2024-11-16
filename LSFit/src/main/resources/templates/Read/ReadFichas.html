@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Fichas de Exercício - GymBD</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<header class="bg-primary text-white p-3">
+    <h1 class="text-center">Fichas de Exercício</h1>
+</header>
+
+<main class="container mt-5">
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Aluno</th>
+                    <th>Instrutor</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="ficha : ${fichas}">
+                    <td th:text="${ficha.aluno.nomePessoa}"></td>
+                    <td th:text="${ficha.instrutor.nomePessoa}"></td>
+                    <td>
+                        <a class="btn btn-info" th:href="@{/ficha/{id}(id=${ficha.pkIdFichaDeTreino})}">Ver mais</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<footer class="bg-dark text-white text-center p-3 mt-5">
+    <p>&copy; 2024 GymBD. Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>

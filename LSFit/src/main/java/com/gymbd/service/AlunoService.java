@@ -21,5 +21,10 @@ public class AlunoService {
     public Aluno salvarAluno(Aluno aluno) {
         return alunoRepository.save(aluno);
     }
+    
+    public void deletarAluno(Integer id) {
+        // Primeiro, exclui o aluno (que é uma entidade de pessoa)
+        alunoRepository.deleteById(id);
+    }
 }
 

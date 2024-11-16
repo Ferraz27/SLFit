@@ -15,6 +15,9 @@ import jakarta.persistence.Table;
 @Table(name = "plano")
 public class Plano {
 	
+	@Column(name="duracao_meses")
+	private Integer duracaoEmMeses;
+	
 	@Id
 	@Column(name="fpk_id_plano")
 	private Integer fpkIdPlano;
@@ -58,8 +61,7 @@ public class Plano {
 		this.aluno = aluno;
 	}
 
-	@Column(name="duracao_meses")
-	private Integer duracaoEmMeses;
+	
 	
 	
 

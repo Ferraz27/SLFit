@@ -30,4 +30,17 @@
 	    // Consulta SQL para buscar a ficha de exercício por ID
 	    @Query(value = "SELECT * FROM ficha_de_treino WHERE pk_id_ficha_de_treino = :fichaId", nativeQuery = true)
 	    FichaDeExercicio findFichaDeExercicioById(@Param("fichaId") Integer fichaId);
+	    
+	    @Query("SELECT f FROM FichaDeExercicio f " +
+	            "JOIN f.aluno a " +
+	            "JOIN f.instrutor i")
+	     List<FichaDeExercicio> findAllFichaDeExercicio();
+
+	     // Consulta para buscar todos os detalhes de uma ficha de exercício por ID
+	     @Query("SELECT f FROM FichaDeExercicio f " +
+	            "JOIN FETCH f.exercicios e " +
+	            "JOIN FETCH f.aluno a " +
+	            "JOIN FETCH f.instrutor i " +
+	            "WHERE f.pkIdFichaDeTreino = :id")
+	     FichaDeExercicio findFichaDeExercicioDetalhada(Integer id);
 	}

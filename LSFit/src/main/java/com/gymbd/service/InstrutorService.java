@@ -20,4 +20,9 @@ public class InstrutorService {
     public Instrutor salvarInstrutor(Instrutor instrutor) {
         return instrutorRepository.save(instrutor);
     }
+    
+    public void deletarInstrutor(Integer id) {
+        // Primeiro, exclui o instrutor (que é uma entidade de pessoa)
+        instrutorRepository.deleteById(id);
+    }
 }

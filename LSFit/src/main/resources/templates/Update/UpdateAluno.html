@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Dados de Aluno</title>
+</head>
+<body>
+    <h1>Editar Dados de Aluno</h1>
+
+    <form th:action="@{/aluno/atualizar}" th:object="${aluno}" method="post">
+        <input type="hidden" th:field="*{pkIdPessoa}"/>
+
+        <label for="nomePessoa">Nome:</label>
+        <input type="text" id="nomePessoa" th:field="*{nomePessoa}" required/><br>
+
+        <label for="cpfPessoa">CPF:</label>
+        <input type="text" id="cpfPessoa" th:field="*{cpfPessoa}" required/><br>
+
+        <label for="telefone1Pessoa">Telefone 1:</label>
+        <input type="text" id="telefone1Pessoa" th:field="*{telefone1Pessoa}"/><br>
+
+        <label for="telefone2Pessoa">Telefone 2:</label>
+        <input type="text" id="telefone2Pessoa" th:field="*{telefone2Pessoa}"/><br>
+
+        <label for="rua">Rua:</label>
+        <input type="text" id="rua" th:field="*{endereco.rua}" required/><br>
+
+        <label for="bairro">Bairro:</label>
+        <input type="text" id="bairro" th:field="*{endereco.bairro}" required/><br>
+
+        <label for="numero">Número:</label>
+        <input type="text" id="numero" th:field="*{endereco.numero}" required/><br>
+
+        <label for="cep">CEP:</label>
+        <input type="text" id="cep" th:field="*{endereco.cep}" required/><br>
+
+        <button type="submit">Atualizar</button>
+    </form>
+</body>
+</html>
