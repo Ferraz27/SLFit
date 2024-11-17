@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gerentes - GymBD</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<header class="bg-primary text-white p-3">
+    <h1 class="text-center">Lista de gerentes</h1>
+</header>
+
+<main class="container mt-5">
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Telefone 1</th>
+                    <th>Telefone 2</th>
+                    <th>Rua</th>
+                    <th>Bairro</th>
+                    <th>Número</th>
+                    <th>CEP</th>
+                    <th>Unidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Itera sobre a lista de gerentes usando Thymeleaf -->
+                <tr th:each="gerente : ${gerentes}">
+                    <td th:text="${gerente.pkIdPessoa}"></td> <!-- ID da Pessoa -->
+                    <td th:text="${gerente.nomePessoa}"></td> <!-- Nome -->
+                    <td th:text="${gerente.cpfPessoa}"></td> <!-- CPF -->
+                    <td th:text="${gerente.telefone1Pessoa}"></td> <!-- Telefone 1 -->
+                    <td th:text="${gerente.telefone2Pessoa}"></td> <!-- Telefone 2 -->
+                    <td th:text="${gerente.endereco.rua}"></td> <!-- Rua do Endereco -->
+                    <td th:text="${gerente.endereco.bairro}"></td> <!-- Bairro do Endereco -->
+                    <td th:text="${gerente.endereco.numero}"></td> <!-- Número do Endereco -->
+                    <td th:text="${gerente.endereco.cep}"></td> <!-- CEP do Endereco -->
+                    <td th:text="${gerente.unidade.bairro}"></td> <!-- CEP do Endereco -->
+                </tr>   
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<footer class="bg-dark text-white text-center p-3 mt-5">
+    <p>&copy; 2024 GymBD. Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>

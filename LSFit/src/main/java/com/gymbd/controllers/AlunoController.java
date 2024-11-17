@@ -89,6 +89,13 @@ public class AlunoController {
         return "Read/ReadInstrutor";
     }
     
+    @GetMapping("/gerentes")
+    public String paginaGerente(Model model) {
+        List<Gerente> gerentes = gerenteService.listarGerentes();
+        model.addAttribute("gerentes", gerentes); 
+        return "Read/ReadGerente";
+    }
+    
     @PostMapping("instrutor/salvar")
     public String salvarInstrutor(@ModelAttribute Instrutor instrutor, @ModelAttribute Endereco endereco) {
     	instrutorService.salvarInstrutor(instrutor);
@@ -171,6 +178,20 @@ public class AlunoController {
         return "Read/ReadUnidade";
     }
     
+    @GetMapping("/unidade/deletar/{id}")
+    public String deletarUnidadeEApagarGerente(@PathVariable Integer id) {
+        Unidade unidade = unidadeService.buscarUnidadePorId(id);
+        if (unidade != null) {
+            // Apaga o gerente associado
+            Gerente gerente = unidade.getGerente();
+            if (gerente != null) {
+                gerenteService.deletarGerente(gerente.getPkIdPessoa());
+            }
+            unidadeService.deletarUnidade(id);
+        }
+        return "redirect:/unidades";
+    }
+    
     @PostMapping("maquina/salvar")
     public String salvarMaquina(@ModelAttribute Maquina maquina) {
         maquinaService.salvarMaquina(maquina);
@@ -191,6 +212,13 @@ public class AlunoController {
         model.addAttribute("maquinas", maquinas);  // Passa a lista de máquinas e exercícios para a view
         return "Read/ReadMaquinaExercicio";  // Nome da view (o HTML que você passou)
     }
+    
+    @GetMapping("/maquina/deletar/{id}")
+    public String deletarMaquina(@PathVariable Integer id) {
+        maquinaService.deletarMaquina(id);  // Chama o serviço para deletar a máquina
+        return "redirect:/maquinas";  // Redireciona para a lista de máquinas
+    }
+
     
     @PostMapping("gerente/salvar")
     public String salvarGerente(@ModelAttribute Gerente gerente, @ModelAttribute Endereco endereco, Integer unidadeId) {
@@ -215,6 +243,12 @@ public class AlunoController {
     @GetMapping("gerente/form")
     public String mostrarFormularioGerente() {
         return "Create/CreateGerente";
+    }
+    
+    @GetMapping("/gerente/deletar/{id}")
+    public String deletarGerenteSemUnidade(@PathVariable Integer id) {
+        gerenteService.deletarGerente(id);
+        return "redirect:/gerentes";
     }
     
     @GetMapping("/exercicios")
@@ -263,6 +297,13 @@ public class AlunoController {
         return "redirect:/home";
     }
     
+    @GetMapping("/exercicio/deletar/{nomeExercicio}")
+    public String deletarExercicio(@PathVariable String nomeExercicio) {
+        exercicioService.deletarExercicio(nomeExercicio);  // Chama o serviço para deletar o exercício
+        return "redirect:/exercicios";  // Redireciona para a lista de exercícios
+    }
+
+    
     @GetMapping("/fichas")
     public String listarFichasDeExercicio(Model model) {
         List<FichaDeExercicio> fichas = fichaDeExercicioService.listarFichasDeExercicio();
@@ -274,11 +315,18 @@ public class AlunoController {
     @GetMapping("/ficha/{id}")
     public String detalhesFichaDeExercicio(@PathVariable Integer id, Model model) {
         FichaDeExercicio fichaDeExercicio = fichaDeExercicioService.buscarFichaDeExercicioDetalhada(id);
+        if(fichaDeExercicio == null) {
+        	return "redirect:/fichas";
+        }
         model.addAttribute("fichaDeExercicio", fichaDeExercicio);
         return "Read/ReadDetalhesFichaDeExercicio";  // Página que mostra os detalhes da ficha (nome da view)
     }
     // Exibir exercícios de uma ficha
-    
+    @GetMapping("/ficha/deletar/{id}")
+    public String deletarExercicio(@PathVariable Integer id) {
+        fichaDeExercicioService.deletarFicha(id);  // Chama o serviço para deletar o exercício
+        return "redirect:/fichas";  // Redireciona para a lista de exercícios
+    }
     
     
     

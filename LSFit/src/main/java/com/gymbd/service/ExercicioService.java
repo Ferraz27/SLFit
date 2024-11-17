@@ -22,5 +22,10 @@ public class ExercicioService {
     public List<Exercicio> listarExerciciosComDetalhes() {
         return exercicioRepository.buscarExerciciosComDetalhes();  // Chama o repositório para fazer a consulta
     }
+    
+    public void deletarExercicio(String nomeExercicio) {
+        exercicioRepository.deletarExercicioPorId(nomeExercicio);
+    
+    }
 }
 

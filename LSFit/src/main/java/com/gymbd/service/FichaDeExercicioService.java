@@ -79,4 +79,8 @@ public class FichaDeExercicioService {
         return fichaDeExercicioRepository.findFichaDeExercicioDetalhada(id);
     }
     
+    public void deletarFicha(Integer id) {
+        fichaDeExercicioRepository.deletarFichaPorId(id);
+    }
+    
 }

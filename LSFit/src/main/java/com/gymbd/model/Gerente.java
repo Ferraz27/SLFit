@@ -20,6 +20,10 @@ public class Gerente extends Pessoa {
 	@OneToOne(mappedBy = "gerente",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Unidade unidade;
 	
+	public Unidade getUnidade() {
+		return unidade;
+	}
+
 	public void setUnidade(Unidade unidade) {
 	    this.unidade = unidade;
 	    if (unidade != null) {

@@ -28,5 +28,12 @@ public class UnidadeService {
     public Unidade buscarUnidadePorId(Integer id) {
         return unidadeRepository.buscarPorId(id);
     }
+    
+    public void deletarUnidade(Integer id) {
+        // Primeiro, exclui o instrutor (que é uma entidade de pessoa)
+        unidadeRepository.deleteById(id);
+    }
+    
+    
 }
 

@@ -3,11 +3,15 @@
 	import com.gymbd.model.FichaDeExercicio;
 	import com.gymbd.model.Exercicio;
 	import com.gymbd.model.Instrutor;
-	import com.gymbd.model.Aluno;
+
+import jakarta.transaction.Transactional;
+
+import com.gymbd.model.Aluno;
 	import org.springframework.data.jpa.repository.Query;
 	import org.springframework.data.repository.query.Param;
 	import org.springframework.data.jpa.repository.JpaRepository;
-	import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.stereotype.Repository;
 	
 	import java.util.List;
 	
@@ -43,4 +47,10 @@
 	            "JOIN FETCH f.instrutor i " +
 	            "WHERE f.pkIdFichaDeTreino = :id")
 	     FichaDeExercicio findFichaDeExercicioDetalhada(Integer id);
+	
+	
+		@Modifying
+		@Transactional
+		@Query(value = "DELETE FROM ficha_de_treino WHERE pk_id_ficha_de_treino = :pk_id_ficha_de_treino", nativeQuery = true)
+		void deletarFichaPorId(@Param("pk_id_ficha_de_treino") Integer id);
 	}

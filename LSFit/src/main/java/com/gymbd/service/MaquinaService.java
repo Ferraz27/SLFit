@@ -32,5 +32,10 @@ public class MaquinaService {
     public List<Maquina> listarMaquinasEExercicios() {
         return maquinaRepository.buscarMaquinasEExercicios();  // Chama o repositório para fazer a consulta
     }
+    
+    public void deletarMaquina(Integer id) {
+        maquinaRepository.deletarMaquinaPorId(id);
+    
+    }
 }
 
