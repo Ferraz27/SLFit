@@ -11,6 +11,37 @@
 <header class="bg-primary text-white p-3">
     <h1 class="text-center">Detalhes da Ficha de Exercício</h1>
 </header>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">LSFit</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/alunos">Alunos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/instrutores">Instrutores</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/gerentes">Gerentes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/unidades">Unidades</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/maquinas">Maquinas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/exercicios">Exercicios</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/fichas">Fichas de Treino</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 <main class="container mt-5">
     <!-- Aluno -->
@@ -37,6 +68,8 @@
                     <th>Séries</th>
                     <th>Repetições</th>
                     <th>Tempo de Descanso (s)</th>
+                    <th>Ações</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -45,9 +78,11 @@
                     <td th:text="${exercicio.series}"></td>
                     <td th:text="${exercicio.numeroDeRepeticoes}"></td>
                     <td th:text="${exercicio.tempoDescanso}"></td>
+                    
                 </tr>
             </tbody>
         </table>
+        <a class="nav-link" href="/unidade/form">Criar Unidade</a>
     </div>
 
     <a href="/ficha-exercicio/form" class="btn btn-secondary">Voltar para o Formulário</a>

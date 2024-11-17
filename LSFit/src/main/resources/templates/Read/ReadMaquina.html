@@ -11,6 +11,37 @@
 <header class="bg-primary text-white p-3">
     <h1 class="text-center">Lista de Maquinas</h1>
 </header>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">LSFit</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/alunos">Alunos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/instrutores">Instrutores</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/gerentes">Gerentes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/unidades">Unidades</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/maquinas">Maquinas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/exercicios">Exercicios</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/fichas">Fichas de Treino</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 <main class="container mt-5">
     <div class="table-responsive">
@@ -20,6 +51,8 @@
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Data de Manutencao</th>
+                    <th>Ações</th>
+
                     
                     
                 </tr>
@@ -29,10 +62,13 @@
                     <td th:text="${maquina.pkIdMaquina}"></td> <!-- ID da Pessoa -->
                     <td th:text="${maquina.nomeMaquina}"></td> <!-- Nome -->
                     <td th:text="${maquina.dataManutencao}"></td> <!-- Nome -->
-                    
+                    <td>
+                        <a class="btn btn-info" th:href="@{/maquina/deletar/{id}(id=${maquina.pkIdMaquina})}">Deletar</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
+        <a class="nav-link" href="/maquina/form">Criar Maquina</a>
     </div>
 </main>
 
