@@ -11,6 +11,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.sql.Date;
 import java.util.List;
 
 @Repository
@@ -31,6 +33,6 @@ public interface MaquinaRepository extends JpaRepository<Maquina, Integer> {
     @Query(value = "DELETE FROM maquina WHERE pk_id_maquina = :pk_id_maquina", nativeQuery = true)
     void deletarMaquinaPorId(@Param("pk_id_maquina") Integer id);
 	
-	
+
 	
 }

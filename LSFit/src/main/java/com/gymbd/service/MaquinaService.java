@@ -17,8 +17,12 @@ public class MaquinaService {
     private MaquinaRepository maquinaRepository;
 
     
-    public Maquina salvarMaquina(Maquina maquina) {
-        return maquinaRepository.save(maquina);
+    public void salvarMaquina(Maquina maquina) {
+        maquinaRepository.save(maquina);
+    }
+    
+    public void atualizarMaquina(Maquina maquina) {
+        maquinaRepository.save(maquina);
     }
     
     public  List<Maquina> listarMaquinas() {

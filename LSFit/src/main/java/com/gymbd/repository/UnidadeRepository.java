@@ -27,4 +27,8 @@ public interface UnidadeRepository extends JpaRepository<Unidade, Integer> {
     @Transactional
     @Query("DELETE FROM Unidade u WHERE u.pkIdUnidade = :id")
     void deleteById(@Param("id") Integer id);
+	
+	
+	    
+
 }

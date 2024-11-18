@@ -25,4 +25,7 @@ public interface GerenteRepository extends JpaRepository<Gerente, Integer> {
             "JOIN enderecos e on e.fpk_id_pessoa = p.pk_id_pessoa " + 
 			"JOIN unidade u on u.fk_id_gerente = g.fpk_id_gerente ", nativeQuery = true)
 	List<Gerente> listarGerentes();
+
+	@Query("SELECT g FROM Gerente g WHERE g.pkIdPessoa = :id")
+	Gerente buscarPorId(@Param("id") Integer id);
 }

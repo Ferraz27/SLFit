@@ -12,10 +12,13 @@ public class EnderecoService {
     private EnderecoRepository enderecoRepository;
 
     // Método para salvar um Endereco
-    public Endereco salvarEndereco(Endereco endereco) {
-        return enderecoRepository.save(endereco);
+    public void salvarEndereco(Endereco endereco) {
+        enderecoRepository.save(endereco);
     }
 
+    public void atualizarEndereco(Endereco endereco) {
+        enderecoRepository.save(endereco);
+    }
     // Método para buscar um Endereco por id
     public Endereco buscarEnderecoPorId(Integer id) {
         return enderecoRepository.findById(id).orElse(null);

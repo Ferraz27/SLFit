@@ -21,8 +21,17 @@ public class InstrutorService {
         return instrutorRepository.save(instrutor);
     }
     
+    public Instrutor atualizarInstrutor(Instrutor instrutor) {
+        return instrutorRepository.save(instrutor);
+    }
+    
     public void deletarInstrutor(Integer id) {
         // Primeiro, exclui o instrutor (que é uma entidade de pessoa)
         instrutorRepository.deleteById(id);
     }
+
+    public Instrutor buscarInstrutorPorId(Integer id) {
+        return instrutorRepository.findByIdd(id);
+    }
+
 }

@@ -4,8 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Plano</title>
+    <style>
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
+
+<main>
     <h1>Criar Novo Plano</h1>
     <form action="/plano/salvar" method="post">
         <label for="preco">Preço:</label>
@@ -25,5 +49,11 @@
 
         <button type="submit">Salvar Plano</button>
     </form>
+</main>
+
+<footer class="bg-dark text-white text-center p-3">
+    <p>&copy; 2024 GymBD. Todos os direitos reservados.</p>
+</footer>
+
 </body>
 </html>

@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Pessoas - GymBD</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+
+        main {
+            flex: 1;
+        }
+
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
@@ -27,20 +48,19 @@
                     <th>Número</th>
                     <th>CEP</th>
                     <th>Ações</th>
-
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="pessoa : ${pessoas}">
-                    <td th:text="${pessoa.pkIdPessoa}"></td> <!-- ID da Pessoa -->
-                    <td th:text="${pessoa.nomePessoa}"></td> <!-- Nome -->
-                    <td th:text="${pessoa.cpfPessoa}"></td> <!-- CPF -->
-                    <td th:text="${pessoa.telefone1Pessoa}"></td> <!-- Telefone 1 -->
-                    <td th:text="${pessoa.telefone2Pessoa}"></td> <!-- Telefone 2 -->
-                    <td th:text="${pessoa.endereco.rua}"></td> <!-- Rua do Endereco -->
-                    <td th:text="${pessoa.endereco.bairro}"></td> <!-- Bairro do Endereco -->
-                    <td th:text="${pessoa.endereco.numero}"></td> <!-- Número do Endereco -->
-                    <td th:text="${pessoa.endereco.cep}"></td> <!-- CEP do Endereco -->
+                    <td th:text="${pessoa.pkIdPessoa}"></td> 
+                    <td th:text="${pessoa.nomePessoa}"></td> 
+                    <td th:text="${pessoa.cpfPessoa}"></td> 
+                    <td th:text="${pessoa.telefone1Pessoa}"></td> 
+                    <td th:text="${pessoa.telefone2Pessoa}"></td> 
+                    <td th:text="${pessoa.endereco.rua}"></td> 
+                    <td th:text="${pessoa.endereco.bairro}"></td> 
+                    <td th:text="${pessoa.endereco.numero}"></td> 
+                    <td th:text="${pessoa.endereco.cep}"></td> 
                 </tr>
             </tbody>
         </table>

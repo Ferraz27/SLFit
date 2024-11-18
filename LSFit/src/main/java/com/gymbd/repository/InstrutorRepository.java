@@ -24,5 +24,10 @@ List<Instrutor> listarInstrutores();
     @Transactional
     @Query("DELETE FROM Instrutor i WHERE i.pkIdPessoa = :id")
     void deleteById(@Param("id") Integer id);
+	
+	@Query("SELECT i FROM Instrutor i WHERE i.pkIdPessoa = :id")
+	Instrutor findByIdd(@Param("id") Integer id);
 
 }
+	
+	

@@ -2,10 +2,14 @@ package com.gymbd.repository;
 
 import com.gymbd.model.Pessoa;
 
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface PessoaRepository extends JpaRepository<Pessoa, Integer> {
 
@@ -20,5 +24,7 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Integer> {
 	@Query("SELECT MAX(p.pkIdPessoa) FROM Pessoa p")
     Integer findMaxId();
 	
+	
+
 }
 

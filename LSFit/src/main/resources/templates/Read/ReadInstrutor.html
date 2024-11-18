@@ -3,13 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>instrutors - GymBD</title>
+    <title>Instrutores - GymBD</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+
+        main {
+            flex: 1;
+        }
+
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
 <header class="bg-primary text-white p-3">
-    <h1 class="text-center">Lista de instrutors</h1>
+    <h1 class="text-center">Lista de Instrutores</h1>
 </header>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/">LSFit</a>
@@ -63,7 +84,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Itera sobre a lista de instrutors usando Thymeleaf -->
+
                 <tr th:each="instrutor : ${instrutores}">
                     <td th:text="${instrutor.pkIdPessoa}"></td> <!-- ID da Pessoa -->
                     <td th:text="${instrutor.nomePessoa}"></td> <!-- Nome -->
@@ -77,6 +98,7 @@
                     <td th:text="${instrutor.salarioInstrutor}"></td> <!-- CEP do Endereco -->
                     <td>
                         <a class="btn btn-info" th:href="@{/instrutor/deletar/{id}(id=${instrutor.pkIdPessoa})}">Deletar</a>
+                        <a class="btn btn-info" th:href="@{/instrutor/form/{id}(id=${instrutor.pkIdPessoa})}">Atualizar</a>
                     </td>
                 </tr>   
             </tbody>

@@ -31,4 +31,13 @@ public interface AlunoRepository extends JpaRepository<Aluno, Integer> {
     @Transactional
     @Query("DELETE FROM Aluno a WHERE a.pkIdPessoa = :id")
     void deleteById(@Param("id") Integer id);
+    
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO aluno (fpk_id_aluno) VALUES (:fpk_Id_Aluno)", nativeQuery = true)
+    void salvarAluno(Integer fpk_Id_Aluno);
+
+    @Query("SELECT a FROM Aluno a WHERE a.pkIdPessoa = :id")
+    Aluno findByIdd(@Param("id") Integer id);
+
 }

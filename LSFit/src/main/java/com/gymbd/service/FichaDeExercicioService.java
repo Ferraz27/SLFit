@@ -29,8 +29,6 @@ public class FichaDeExercicioService {
     @Autowired
     private ExercicioRepository exercicioRepository;
     
-    
-
     // Criação de uma nova ficha de exercício, associando aluno, instrutor e exercícios
     @Transactional
     public FichaDeExercicio criarFichaDeExercicio(Integer alunoId, Integer instrutorId, List<String> exercicios) {
@@ -82,5 +80,24 @@ public class FichaDeExercicioService {
     public void deletarFicha(Integer id) {
         fichaDeExercicioRepository.deletarFichaPorId(id);
     }
-    
+
+    @Transactional
+    public FichaDeExercicio atualizarFichaDeExercicio(FichaDeExercicio fichaDeExercicio, Integer alunoId, Integer instrutorId, List<String> novosExercicios) {
+        // Buscar o aluno e instrutor a partir dos seus IDs
+        Aluno aluno = alunoRepository.findById(alunoId).orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
+        Instrutor instrutor = instrutorRepository.findById(instrutorId).orElseThrow(() -> new RuntimeException("Instrutor não encontrado"));
+
+        // Buscar os novos exercícios com base na lista de nomes
+        List<Exercicio> listaExercicios = exercicioRepository.findByNomeExercicioIn(novosExercicios);
+
+        // Atualizar os dados da ficha de exercício
+        fichaDeExercicio.setAluno(aluno);
+        fichaDeExercicio.setInstrutor(instrutor);
+        fichaDeExercicio.setExercicios(listaExercicios);
+
+        // Salvar a ficha de exercício atualizada
+        fichaDeExercicio = fichaDeExercicioRepository.save(fichaDeExercicio);
+
+        return fichaDeExercicio;
+    }
 }

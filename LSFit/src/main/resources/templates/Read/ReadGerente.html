@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>gerentes - GymBD</title>
+    <title>Gerentes - GymBD</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 <header class="bg-primary text-white p-3">
-    <h1 class="text-center">Lista de gerentes</h1>
+    <h1 class="text-center">Lista de Gerentes</h1>
 </header>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/">LSFit</a>
@@ -43,7 +43,7 @@
     </div>
 </nav>
 
-<main class="container mt-5">
+<main class="container mt-5 flex-grow-1">
     <div class="table-responsive">
         <table class="table table-bordered">
             <thead class="thead-dark">
@@ -59,11 +59,10 @@
                     <th>CEP</th>
                     <th>Unidade</th>
                     <th>Ações</th>
-
                 </tr>
             </thead>
             <tbody>
-                <!-- Itera sobre a lista de gerentes usando Thymeleaf -->
+
                 <tr th:each="gerente : ${gerentes}">
                     <td th:text="${gerente.pkIdPessoa}"></td> <!-- ID da Pessoa -->
                     <td th:text="${gerente.nomePessoa}"></td> <!-- Nome -->
@@ -74,9 +73,10 @@
                     <td th:text="${gerente.endereco.bairro}"></td> <!-- Bairro do Endereco -->
                     <td th:text="${gerente.endereco.numero}"></td> <!-- Número do Endereco -->
                     <td th:text="${gerente.endereco.cep}"></td> <!-- CEP do Endereco -->
-                    <td th:text="${gerente.unidade.bairro}"></td> <!-- CEP do Endereco -->
+                    <td th:text="${gerente.unidade.bairro}"></td> <!-- Unidade -->
                     <td>
                         <a class="btn btn-info" th:href="@{/gerente/deletar/{id}(id=${gerente.pkIdPessoa})}">Deletar</a>
+                        <a class="btn btn-info" th:href="@{/gerente/form/{id}(id=${gerente.pkIdPessoa})}">Atualizar</a>
                     </td>
                 </tr>   
             </tbody>
@@ -85,7 +85,7 @@
     </div>
 </main>
 
-<footer class="bg-dark text-white text-center p-3 mt-5">
+<footer class="bg-dark text-white text-center p-3 mt-auto">
     <p>&copy; 2024 GymBD. Todos os direitos reservados.</p>
 </footer>
 

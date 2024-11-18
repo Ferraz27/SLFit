@@ -19,8 +19,8 @@ public class PessoaService {
     
 
 
-    public Pessoa salvarPessoa(Pessoa pessoa) {
-        return pessoaRepository.save(pessoa);
+    public void salvarPessoa(Pessoa pessoa) {
+        pessoaRepository.save(pessoa);
     }
     
     public Integer	 getNextPessoaId() {

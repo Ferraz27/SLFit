@@ -1,11 +1,15 @@
 package com.gymbd.model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "unidade")
 public class Unidade {
+	
+	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,9 +34,14 @@ public class Unidade {
     @Column(name = "telefone2", length = 15)
     private String telefone2Unidade;
     
-	@OneToOne(fetch = FetchType.LAZY)
+	
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_id_gerente")
 	private Gerente gerente;
+    
+    @OneToMany(mappedBy = "unidade", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Plano> planos;
+
 
     public Integer getPkIdUnidade() {
 		return pkIdUnidade;

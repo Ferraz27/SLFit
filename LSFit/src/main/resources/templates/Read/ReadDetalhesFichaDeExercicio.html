@@ -6,7 +6,7 @@
     <title>Detalhes da Ficha de Exercício - GymBD</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 <header class="bg-primary text-white p-3">
     <h1 class="text-center">Detalhes da Ficha de Exercício</h1>
@@ -43,14 +43,13 @@
     </div>
 </nav>
 
-<main class="container mt-5">
+<main class="container mt-5 flex-grow-1">
     <h2>Informações do Aluno</h2>
     <p><strong>Aluno:</strong> <span th:text="${fichaDeExercicio.aluno.nomePessoa}"></span></p>
     <p><strong>Instrutor:</strong> <span th:text="${fichaDeExercicio.instrutor.nomePessoa}"></span></p>
 
     <h3 class="mt-4">Exercícios da Ficha</h3>
     <ul class="list-group">
-        <!-- Itera sobre todos os exercícios da ficha -->
         <li th:each="exercicio : ${fichaDeExercicio.exercicios}" class="list-group-item">
             <h5><strong>Exercício:</strong> <span th:text="${exercicio.nomeExercicio}"></span></h5>
             <p><strong>Séries:</strong> <span th:text="${exercicio.series}"></span></p>
@@ -58,10 +57,9 @@
             <p><strong>Tempo de Descanso:</strong> <span th:text="${exercicio.tempoDescanso}"></span></p>
         </li>
     </ul>
-
 </main>
 
-<footer class="bg-dark text-white text-center p-3 mt-5">
+<footer class="bg-dark text-white text-center p-3 mt-auto">
     <p>&copy; 2024 GymBD. Todos os direitos reservados.</p>
 </footer>
 

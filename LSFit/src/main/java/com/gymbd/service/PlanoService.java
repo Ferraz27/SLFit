@@ -28,8 +28,10 @@ public class PlanoService {
     }
 
     // Salvar plano
-    public Plano salvarPlano(Plano plano) {
-        return planoRepository.save(plano);
+    public void salvarPlano(Plano plano) {
+    		System.out.println("dei save no plano da unidade " + plano.getUnidade().getPkIdUnidade());
+        planoRepository.save(plano);
+        
     }
 
     

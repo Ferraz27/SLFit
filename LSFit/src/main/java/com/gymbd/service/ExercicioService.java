@@ -19,13 +19,20 @@ public class ExercicioService {
         exercicioRepository.save(exercicio);
     }
     
+    public void atualizarExercicio(Exercicio exercicio) {
+        exercicioRepository.save(exercicio);
+    }
+    
     public List<Exercicio> listarExerciciosComDetalhes() {
         return exercicioRepository.buscarExerciciosComDetalhes();  // Chama o repositório para fazer a consulta
     }
     
     public void deletarExercicio(String nomeExercicio) {
         exercicioRepository.deletarExercicioPorId(nomeExercicio);
-    
+    }
+
+    // Novo método para buscar exercício por nome
+    public Exercicio buscarExercicioPorNome(String nome) {
+        return exercicioRepository.buscarPorNomeExercicio(nome);
     }
 }
-

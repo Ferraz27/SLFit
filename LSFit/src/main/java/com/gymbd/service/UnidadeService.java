@@ -17,8 +17,13 @@ public class UnidadeService {
     
     
     public Unidade salvarUnidade(Unidade unidade) {
-        return unidadeRepository.save(unidade);
-    }
+    	return unidadeRepository.save(unidade);
+    	}
+    
+    public Unidade atualizarUnidade(Unidade unidade) {
+    	return unidadeRepository.save(unidade);
+    	}
+    
     
     public List<Unidade> listarUnidades() {
         return unidadeRepository.listarTodosUnidades();
@@ -34,6 +39,8 @@ public class UnidadeService {
         unidadeRepository.deleteById(id);
     }
     
+    
+
     
 }
 

@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Máquinas e Exercícios - GymBD</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+
+        main {
+            flex: 1;
+        }
+
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
@@ -53,21 +74,21 @@
                     <th>Data de Manutenção</th>
                     <th>Exercícios</th>
                     <th>Ações</th>
-
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="maquina : ${maquinas}">
-                    <td th:text="${maquina.pkIdMaquina}"></td> <!-- ID da Pessoa -->
-                    <td th:text="${maquina.nomeMaquina}"></td> <!-- Nome da Máquina -->
-                    <td th:text="${maquina.dataManutencao}"></td> <!-- Data de Manutenção -->
+                    <td th:text="${maquina.pkIdMaquina}"></td> 
+                    <td th:text="${maquina.nomeMaquina}"></td> 
+                    <td th:text="${maquina.dataManutencao}"></td> 
                     <td>
                         <ul>
                             <li th:each="exercicio : ${maquina.exercicios}" th:text="${exercicio.nomeExercicio}"></li>
                         </ul>
-                    </td> <!-- Exercícios associados à Máquina -->
+                    </td> 
                     <td>
                         <a class="btn btn-info" th:href="@{/maquina/deletar/{id}(id=${maquina.pkIdMaquina})}">Deletar</a>
+                        <a class="btn btn-info" th:href="@{/maquina/form/{id}(id=${maquina.pkIdMaquina})}">Atualizar</a>
                     </td>
                 </tr>
             </tbody>

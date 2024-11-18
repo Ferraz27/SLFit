@@ -1,5 +1,6 @@
 package com.gymbd.controllers;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,49 +17,46 @@ import com.gymbd.model.Endereco;
 import com.gymbd.model.Exercicio;
 import com.gymbd.model.FichaDeExercicio;
 import com.gymbd.model.Gerente;
-import com.gymbd.service.AlunoService;
-import com.gymbd.service.EnderecoService;
-import com.gymbd.service.ExercicioService;
-import com.gymbd.service.FichaDeExercicioService;
-import com.gymbd.service.GerenteService;
 import com.gymbd.model.Instrutor;
 import com.gymbd.model.Maquina;
 import com.gymbd.model.Pessoa;
 import com.gymbd.model.Plano;
 import com.gymbd.model.Unidade;
+import com.gymbd.service.AlunoService;
+import com.gymbd.service.EnderecoService;
+import com.gymbd.service.ExercicioService;
+import com.gymbd.service.FichaDeExercicioService;
+import com.gymbd.service.GerenteService;
 import com.gymbd.service.InstrutorService;
+import com.gymbd.service.MaquinaService;
 import com.gymbd.service.PessoaService;
 import com.gymbd.service.PlanoService;
 import com.gymbd.service.UnidadeService;
-import com.gymbd.service.MaquinaService;
-
-
 
 @Controller
 public class AlunoController {
-	
-	@Autowired
-	private AlunoService alunoService;
-	@Autowired
-	private InstrutorService instrutorService;
-	@Autowired
-	private PessoaService pessoaService;
-	@Autowired
-	private EnderecoService enderecoService;
-	@Autowired
-	private UnidadeService unidadeService;
-	@Autowired
-	private MaquinaService maquinaService;
-	@Autowired
-	private GerenteService gerenteService;
-	@Autowired
+    
+    @Autowired
+    private AlunoService alunoService;
+    @Autowired
+    private InstrutorService instrutorService;
+    @Autowired
+    private PessoaService pessoaService;
+    @Autowired
+    private EnderecoService enderecoService;
+    @Autowired
+    private UnidadeService unidadeService;
+    @Autowired
+    private MaquinaService maquinaService;
+    @Autowired
+    private GerenteService gerenteService;
+    @Autowired
     private ExercicioService exercicioService;
-	@Autowired
+    @Autowired
     private FichaDeExercicioService fichaDeExercicioService;
-	@Autowired
+    @Autowired
     private PlanoService planoService;
-	
-	
+
     @GetMapping("/home")
     public String home() {
         return "index";  // O Spring Boot buscará 'index.html' automaticamente
@@ -98,17 +96,28 @@ public class AlunoController {
     
     @PostMapping("instrutor/salvar")
     public String salvarInstrutor(@ModelAttribute Instrutor instrutor, @ModelAttribute Endereco endereco) {
-    	instrutorService.salvarInstrutor(instrutor);
-    	endereco.setFpkIdPessoa(instrutor.getPkIdPessoa());
-    	
+        instrutorService.salvarInstrutor(instrutor);
+        endereco.setFpkIdPessoa(instrutor.getPkIdPessoa());
         enderecoService.salvarEndereco(endereco);
-        
-        
-        
         return "redirect:/instrutores";
     }
-
     
+    @PostMapping("instrutor/atualizar/{id}")
+    public String atualizarInstrutor(@PathVariable Integer id, @ModelAttribute Instrutor instrutor, @ModelAttribute Endereco endereco) {
+        instrutor.setPkIdPessoa(id);
+        instrutorService.atualizarInstrutor(instrutor);
+        endereco.setFpkIdPessoa(instrutor.getPkIdPessoa());
+        enderecoService.atualizarEndereco(endereco);        
+        return "redirect:/instrutores";
+    }
+    
+    @GetMapping("instrutor/form/{id}")
+    public String mostrarFormularioAtualizacaoInstrutor(@PathVariable Integer id, Model model) {
+        Instrutor instrutor = instrutorService.buscarInstrutorPorId(id);
+        model.addAttribute("instrutor", instrutor);
+        return "Update/UpdateInstrutor";
+    }
+
     @GetMapping("instrutor/form")
     public String mostrarFormularioInstrutor() {
         return "Create/CreateInstrutor";
@@ -127,20 +136,54 @@ public class AlunoController {
         return "Read/ReadAluno";
     }
     
-    
     @PostMapping("aluno/salvar")
-    public String salvarAluno(@ModelAttribute Aluno aluno, @ModelAttribute Endereco endereco, @ModelAttribute Plano plano) {
-    	alunoService.salvarAluno(aluno);
-    	endereco.setFpkIdPessoa(aluno.getPkIdPessoa());
-    	plano.setFpkIdPlano(aluno.getPkIdPessoa());
-        enderecoService.salvarEndereco(endereco);
+    public String salvarAluno(@ModelAttribute Aluno aluno, @ModelAttribute Endereco endereco, @ModelAttribute Plano plano, Integer unidadeId) {
+    	Unidade unidade = unidadeService.buscarUnidadePorId(unidadeId);
+    	if (unidade != null) {
+            System.out.println("setou" + unidade.getPkIdUnidade());
+            plano.setUnidade(unidade);
+        }
+    	java.time.LocalDate dataAtual = java.time.LocalDate.now();
+    	
+        alunoService.atualizarAluno(aluno);
+        endereco.setFpkIdPessoa(aluno.getPkIdPessoa());
+        plano.setFpkIdPlano(aluno.getPkIdPessoa());
+        plano.setDataDeMatricula(dataAtual);
+        enderecoService.atualizarEndereco(endereco);      
         planoService.salvarPlano(plano);
         
-        
-        return "redirect:/Read/ReadPessoas";
+        return "redirect:/alunos";
     }
 
-    
+    @PostMapping("aluno/atualizar/{id}")
+    public String atualizarAluno(@PathVariable Integer id, @ModelAttribute Aluno aluno, @ModelAttribute Endereco endereco, @ModelAttribute Plano plano, Integer unidadeId) {
+        Unidade unidade = unidadeService.buscarUnidadePorId(unidadeId);
+        if (unidade != null) {
+            System.out.println("setou" + unidade.getPkIdUnidade());
+            plano.setUnidade(unidade);
+        }
+        
+        // Usando java.time.LocalDate para obter a data atual
+        java.time.LocalDate dataAtual = java.time.LocalDate.now();
+
+        
+        aluno.setPkIdPessoa(id);
+        alunoService.atualizarAluno(aluno);
+        endereco.setFpkIdPessoa(aluno.getPkIdPessoa());
+        plano.setFpkIdPlano(aluno.getPkIdPessoa());
+        plano.setDataDeMatricula(dataAtual);
+        enderecoService.atualizarEndereco(endereco);      
+        planoService.salvarPlano(plano);
+        return "redirect:/alunos";
+    }
+
+    @GetMapping("aluno/form/{id}")
+    public String mostrarFormularioAtualizacaoAluno(@PathVariable Integer id, Model model) {
+        Aluno aluno = alunoService.buscarAlunoPorId(id);
+        model.addAttribute("aluno", aluno);
+        return "Update/UpdateAluno";
+    }
+
     @GetMapping("aluno/form")
     public String mostrarFormularioAluno() {
         return "Create/CreateAluno";
@@ -152,30 +195,36 @@ public class AlunoController {
         return "redirect:/alunos"; // Redireciona para a lista de alunos
     }
     
-    
-    
-    
-    
-    @PostMapping("unidade/salvar")
-    public String salvarUnidade(@ModelAttribute Unidade unidade) {
-    	System.out.println(unidade.getRua());
-        unidadeService.salvarUnidade(unidade);
-        
-        
-        return "redirect:/unidades";
-    }
-
-    
-    @GetMapping("unidade/form")
-    public String mostrarFormularioUnidade() {
-        return "Create/CreateUnidade";
-    }
-    
     @GetMapping("unidades")
     public String paginaUnidade(Model model) {
         List<Unidade> unidades = unidadeService.listarUnidades();
         model.addAttribute("unidades", unidades); 
         return "Read/ReadUnidade";
+    }
+    
+    @PostMapping("unidade/salvar")
+    public String salvarUnidade(@ModelAttribute Unidade unidade) {
+        unidadeService.salvarUnidade(unidade);
+        return "redirect:/unidades";
+    }
+
+    @PostMapping("unidade/atualizar/{id}")
+    public String atualizarUnidade(@PathVariable Integer id, @ModelAttribute Unidade unidade) {
+        unidade.setPkIdUnidade(id);
+        unidadeService.atualizarUnidade(unidade);
+        return "redirect:/unidades";
+    }
+
+    @GetMapping("unidade/form/{id}")
+    public String mostrarFormularioAtualizacaoUnidade(@PathVariable Integer id, Model model) {
+        Unidade unidade = unidadeService.buscarUnidadePorId(id);
+        model.addAttribute("unidade", unidade);
+        return "Update/UpdateUnidade";
+    }
+
+    @GetMapping("unidade/form")
+    public String mostrarFormularioUnidade() {
+        return "Create/CreateUnidade";
     }
     
     @GetMapping("/unidade/deletar/{id}")
@@ -195,12 +244,23 @@ public class AlunoController {
     @PostMapping("maquina/salvar")
     public String salvarMaquina(@ModelAttribute Maquina maquina) {
         maquinaService.salvarMaquina(maquina);
-        
-        
         return "redirect:/home";
     }
 
-    
+    @PostMapping("maquina/atualizar/{id}")
+    public String atualizarMaquina(@PathVariable Integer id, @ModelAttribute Maquina maquina) {
+        maquina.setPkIdMaquina(id);
+        maquinaService.atualizarMaquina(maquina);
+        return "redirect:/maquinas";
+    }
+
+    @GetMapping("maquina/form/{id}")
+    public String mostrarFormularioAtualizacaoMaquina(@PathVariable Integer id, Model model) {
+        Maquina maquina = maquinaService.buscarMaquinaPorId(id);
+        model.addAttribute("maquina", maquina);
+        return "Update/UpdateMaquina";
+    }
+
     @GetMapping("maquina/form")
     public String mostrarFormularioMaquina() {
         return "Create/CreateMaquina";
@@ -219,7 +279,6 @@ public class AlunoController {
         return "redirect:/maquinas";  // Redireciona para a lista de máquinas
     }
 
-    
     @PostMapping("gerente/salvar")
     public String salvarGerente(@ModelAttribute Gerente gerente, @ModelAttribute Endereco endereco, Integer unidadeId) {
         // Verifica se a unidade existe
@@ -227,7 +286,6 @@ public class AlunoController {
         if (unidade != null) {
             // Associa o gerente à unidade
             gerente.setUnidade(unidade);
-            
         }
         
         // Salva o gerente
@@ -238,6 +296,22 @@ public class AlunoController {
         enderecoService.salvarEndereco(endereco);
         
         return "redirect:/instrutores"; // Redireciona para a página de instrutores
+    }
+
+    @PostMapping("gerente/atualizar/{id}")
+    public String atualizarGerente(@PathVariable Integer id, @ModelAttribute Gerente gerente, @ModelAttribute Endereco endereco) {
+        gerente.setPkIdPessoa(id);
+        gerenteService.atualizarGerente(gerente);
+        endereco.setFpkIdPessoa(gerente.getPkIdPessoa());
+        enderecoService.atualizarEndereco(endereco);        
+        return "redirect:/gerentes";
+    }
+
+    @GetMapping("gerente/form/{id}")
+    public String mostrarFormularioAtualizacaoGerente(@PathVariable Integer id, Model model) {
+        Gerente gerente = gerenteService.buscarPorId(id);
+        model.addAttribute("gerente", gerente);
+        return "Update/UpdateGerente";
     }
     
     @GetMapping("gerente/form")
@@ -277,7 +351,72 @@ public class AlunoController {
         }
         return "redirect:/exercicios";  // Redireciona para a página de exercícios
     }
- // Página de criação da ficha de exercício
+
+    @PostMapping("exercicio/atualizar/{name}")
+    public String atualizarExercicio(@PathVariable String name, @ModelAttribute Exercicio exercicio, @RequestParam Integer maquinaId) {
+        exercicio.setNomeExercicio(name);
+        Maquina maquina = maquinaService.buscarMaquinaPorId(maquinaId);
+        if (maquina != null) {
+            exercicio.setMaquina(maquina);
+            exercicioService.atualizarExercicio(exercicio);
+        }
+        return "redirect:/exercicios";
+    }
+
+    @GetMapping("exercicio/form/{name}")
+    public String mostrarFormularioAtualizacaoExercicio(@PathVariable String name, Model model) {
+        Exercicio exercicio = exercicioService.buscarExercicioPorNome(name);
+        List<Maquina> maquinas = maquinaService.listarMaquinas();
+        model.addAttribute("exercicio", exercicio);
+        model.addAttribute("maquinas", maquinas);
+        return "Update/UpdateExercicio";
+    }
+    
+    @GetMapping("/exercicio/deletar/{nomeExercicio}")
+    public String deletarExercicio(@PathVariable String nomeExercicio) {
+        exercicioService.deletarExercicio(nomeExercicio);  // Chama o serviço para deletar o exercício
+        return "redirect:/exercicios";  // Redireciona para a lista de exercícios
+    }
+
+    @GetMapping("/fichas")
+    public String listarFichasDeExercicio(Model model) {
+        List<FichaDeExercicio> fichas = fichaDeExercicioService.listarFichasDeExercicio();
+        model.addAttribute("fichas", fichas);
+        return "Read/ReadFichas";  // Página que lista as fichas (nome da view)
+    }
+
+    @GetMapping("/ficha/{id}")
+    public String detalhesFichaDeExercicio(@PathVariable Integer id, Model model) {
+        FichaDeExercicio fichaDeExercicio = fichaDeExercicioService.buscarFichaDeExercicioDetalhada(id);
+        if(fichaDeExercicio == null) {
+            return "redirect:/fichas";
+        }
+        model.addAttribute("fichaDeExercicio", fichaDeExercicio);
+        return "Read/ReadDetalhesFichaDeExercicio";  // Página que mostra os detalhes da ficha (nome da view)
+    }
+
+    @PostMapping("fichaExercicio/atualizar/{id}")
+    public String atualizarFichaDeExercicio(@PathVariable Integer id,
+                                        @ModelAttribute FichaDeExercicio fichaDeExercicio,
+                                        @RequestParam Integer alunoId,
+                                        @RequestParam Integer instrutorId,
+                                        @RequestParam List<String> exercicios) {
+    fichaDeExercicio.setPkIdFichaDeTreino(id);
+    fichaDeExercicioService.atualizarFichaDeExercicio(fichaDeExercicio, alunoId, instrutorId, exercicios);
+    return "redirect:/fichas";
+}
+
+
+    @GetMapping("fichaExercicio/form/{id}")
+    public String mostrarFormularioAtualizacaoFichaDeExercicio(@PathVariable Integer id, Model model) {
+        FichaDeExercicio fichaDeExercicio = fichaDeExercicioService.getFichaDeExercicioById(id);
+        model.addAttribute("fichaDeExercicio", fichaDeExercicio);
+        model.addAttribute("alunos", alunoService.listarAlunos());
+        model.addAttribute("instrutores", instrutorService.listarInstrutores());
+        model.addAttribute("exercicios", exercicioService.listarExerciciosComDetalhes());
+        return "Update/UpdateFichaDeExercicio";
+    }
+
     @GetMapping("/fichaExercicio/form")
     public String mostrarFormularioFichaDeExercicio(Model model) {
         model.addAttribute("alunos", alunoService.listarAlunos());
@@ -287,7 +426,6 @@ public class AlunoController {
         return "Create/CreateFichaDeExercicio";
     }
 
-    // Salvando a ficha de exercício
     @PostMapping("/fichaExercicio/salvar")
     public String salvarFichaDeExercicio(@ModelAttribute FichaDeExercicio fichaDeExercicio,
                                           @RequestParam Integer alunoId,
@@ -296,40 +434,4 @@ public class AlunoController {
         fichaDeExercicioService.criarFichaDeExercicio(alunoId, instrutorId, exercicios);
         return "redirect:/home";
     }
-    
-    @GetMapping("/exercicio/deletar/{nomeExercicio}")
-    public String deletarExercicio(@PathVariable String nomeExercicio) {
-        exercicioService.deletarExercicio(nomeExercicio);  // Chama o serviço para deletar o exercício
-        return "redirect:/exercicios";  // Redireciona para a lista de exercícios
-    }
-
-    
-    @GetMapping("/fichas")
-    public String listarFichasDeExercicio(Model model) {
-        List<FichaDeExercicio> fichas = fichaDeExercicioService.listarFichasDeExercicio();
-        model.addAttribute("fichas", fichas);
-        return "Read/ReadFichas";  // Página que lista as fichas (nome da view)
-    }
-
-    // Exibe os detalhes de uma ficha de exercício específica
-    @GetMapping("/ficha/{id}")
-    public String detalhesFichaDeExercicio(@PathVariable Integer id, Model model) {
-        FichaDeExercicio fichaDeExercicio = fichaDeExercicioService.buscarFichaDeExercicioDetalhada(id);
-        if(fichaDeExercicio == null) {
-        	return "redirect:/fichas";
-        }
-        model.addAttribute("fichaDeExercicio", fichaDeExercicio);
-        return "Read/ReadDetalhesFichaDeExercicio";  // Página que mostra os detalhes da ficha (nome da view)
-    }
-    // Exibir exercícios de uma ficha
-    @GetMapping("/ficha/deletar/{id}")
-    public String deletarExercicio(@PathVariable Integer id) {
-        fichaDeExercicioService.deletarFicha(id);  // Chama o serviço para deletar o exercício
-        return "redirect:/fichas";  // Redireciona para a lista de exercícios
-    }
-    
-    
-    
-    
-    
 }
