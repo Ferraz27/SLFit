@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerentes - GymBD</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .table-bordered {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .add-button {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
 
@@ -62,7 +71,6 @@
                 </tr>
             </thead>
             <tbody>
-
                 <tr th:each="gerente : ${gerentes}">
                     <td th:text="${gerente.pkIdPessoa}"></td> <!-- ID da Pessoa -->
                     <td th:text="${gerente.nomePessoa}"></td> <!-- Nome -->
@@ -75,13 +83,17 @@
                     <td th:text="${gerente.endereco.cep}"></td> <!-- CEP do Endereco -->
                     <td th:text="${gerente.unidade.bairro}"></td> <!-- Unidade -->
                     <td>
-                        <a class="btn btn-info" th:href="@{/gerente/deletar/{id}(id=${gerente.pkIdPessoa})}">Deletar</a>
-                        <a class="btn btn-info" th:href="@{/gerente/form/{id}(id=${gerente.pkIdPessoa})}">Atualizar</a>
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-danger mr-2 rounded" th:href="@{/gerente/deletar/{id}(id=${gerente.pkIdPessoa})}">Deletar</a>
+                            <a class="btn btn-info rounded" th:href="@{/gerente/form/{id}(id=${gerente.pkIdPessoa})}">Atualizar</a>
+                        </div>
                     </td>
                 </tr>   
             </tbody>
         </table>
-        <a class="nav-link" href="/gerente/form">Criar Gerente</a>
+    </div>
+    <div class="add-button">
+        <a class="btn btn-success" href="/gerente/form">Criar Gerente</a>
     </div>
 </main>
 

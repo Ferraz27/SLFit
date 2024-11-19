@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Máquina - LSFit</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <header class="bg-primary text-white p-3">
@@ -57,12 +73,12 @@
 
             <div class="form-group d-flex justify-content-between">
                 <button type="submit" class="btn btn-primary">Salvar</button>
-                <a href="/maquina/listar" class="btn btn-secondary">Voltar para a Lista</a>
+                <a href="/maquinas" class="btn btn-secondary">Voltar para a Lista</a>
             </div>
         </form>
     </main>
 
-    <footer class="bg-dark text-white text-center p-3 mt-5">
+    <footer class="bg-dark text-white text-center p-3">
         <p>&copy; 2024 LSFit. Todos os direitos reservados.</p>
     </footer>
 

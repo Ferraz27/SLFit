@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Alunos - GymBD</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .table-bordered {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .add-button {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
 
@@ -74,18 +83,22 @@
                     <td th:text="${aluno.endereco.cep}"></td>
                     <td th:text="${aluno.plano.duracaoEmMeses}"></td>
                     <td th:text="${aluno.plano.preco}"></td>
-                    <td>
-                        <a class="btn btn-info" th:href="@{/aluno/deletar/{id}(id=${aluno.pkIdPessoa})}">Deletar</a>
-                        <a class="btn btn-info" th:href="@{/aluno/form/{id}(id=${aluno.pkIdPessoa})}">Atualizar</a>
+                    <td class="text-center align-middle">
+                        <div class="btn-group d-flex justify-content-center align-items-center" role="group">
+                            <a class="btn btn-danger mr-2 rounded" th:href="@{/aluno/deletar/{id}(id=${aluno.pkIdPessoa})}">Deletar</a>
+                            <a class="btn btn-info rounded" th:href="@{/aluno/form/{id}(id=${aluno.pkIdPessoa})}">Atualizar</a>
+                        </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <a class="nav-link" href="/aluno/form">Criar Aluno</a>
+    </div>
+    <div class="add-button">
+        <a class="btn btn-success" href="/aluno/form">Criar Aluno</a>
     </div>
 </main>
 
-<footer class="bg-dark text-white text-center p-3 mt-auto">
+<footer class="bg-dark text-white text-center p-3 mt-auto">
     <p>&copy; 2024 GymBD. Todos os direitos reservados.</p>
 </footer>
 

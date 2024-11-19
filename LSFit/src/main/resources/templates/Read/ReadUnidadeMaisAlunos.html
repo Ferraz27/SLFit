@@ -3,9 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Unidades - GymBD</title>
+    <title>Unidade com Mais Alunos - GymBD</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
         .table-bordered {
             border-radius: 10px;
             overflow: hidden;
@@ -15,12 +29,11 @@
         }
     </style>
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body>
 
 <header class="bg-primary text-white p-3">
-    <h1 class="text-center">Lista de Unidades</h1>
+    <h1 class="text-center">Unidade com Mais Alunos</h1>
 </header>
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/">LSFit</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,49 +66,41 @@
     </div>
 </nav>
 
-<main class="container mt-5 flex-grow-1">
+<main class="container mt-5">
     <div class="table-responsive">
         <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
-                    <th>Telefone 1</th>
-                    <th>Telefone 2</th>
                     <th>Rua</th>
                     <th>Bairro</th>
                     <th>Número</th>
                     <th>CEP</th>
-                    <th>Ações</th>
+                    <th>Telefone 1</th>
+                    <th>Telefone 2</th>
+                    <th>Total de Alunos</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="unidade : ${unidades}">
-                    <td th:text="${unidade.pkIdUnidade}"></td> 
-                    <td th:text="${unidade.telefone1Unidade}"></td> 
-                    <td th:text="${unidade.telefone2Unidade}"></td> 
-                    <td th:text="${unidade.rua}"></td> 
-                    <td th:text="${unidade.bairro}"></td> 
-                    <td th:text="${unidade.numero}"></td> 
-                    <td th:text="${unidade.cep}"></td> 
-                    <td class="text-center align-middle">
-                        <div class="btn-group d-flex justify-content-center align-items-center" role="group">
-                            <a class="btn btn-danger mr-2 rounded" th:href="@{/unidade/deletar/{id}(id=${unidade.pkIdUnidade})}">Deletar</a>
-                            <a class="btn btn-info rounded" th:href="@{/unidade/form/{id}(id=${unidade.pkIdUnidade})}">Atualizar</a>
-                        </div>
-                    </td>
+                <tr>
+                    <td th:text="${unidade[0]}"></td> <!-- ID da Unidade -->
+                    <td th:text="${unidade[2]}"></td> <!-- Rua -->
+                    <td th:text="${unidade[3]}"></td> <!-- Bairro -->
+                    <td th:text="${unidade[4]}"></td> <!-- Número -->
+                    <td th:text="${unidade[5]}"></td> <!-- CEP -->
+                    <td th:text="${unidade[6]}"></td> <!-- Telefone 1 -->
+                    <td th:text="${unidade[7]}"></td> <!-- Telefone 2 -->
+                    <td th:text="${unidade[8]}"></td> <!-- Total de Alunos -->
                 </tr>
             </tbody>
         </table>
     </div>
     <div class="add-button">
-        <a class="btn btn-success" href="/unidade/form">Criar Unidade</a>
-    </div>
-    <div class="add-button">
-        <a class="btn btn-success" href="/unidade/maisAlunos">Ver Unidade com mais Alunos</a>
+        <a class="btn btn-secondary" href="/unidades">Voltar para a Lista de Unidades</a>
     </div>
 </main>
 
-<footer class="bg-dark text-white text-center p-3 mt-auto">
+<footer class="bg-dark text-white text-center p-3 mt-5">
     <p>&copy; 2024 GymBD. Todos os direitos reservados.</p>
 </footer>
 

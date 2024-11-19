@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualizar Ficha de Exercício - GymBD</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .table-bordered {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .add-button {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
 
@@ -77,10 +86,19 @@
                     <td th:text="${exercicio.series}"></td>
                     <td th:text="${exercicio.numeroDeRepeticoes}"></td>
                     <td th:text="${exercicio.tempoDescanso}"></td>
+                    <td class="text-center align-middle">
+                        <div class="btn-group d-flex align-items-center justify-content-center" role="group">
+                            <a class="btn btn-info rounded mr-2" th:href="@{/exercicio/{id}(id=${exercicio.pkIdExercicio})}">Ver Mais</a>
+                            <a class="btn btn-danger rounded mr-2" th:href="@{/exercicio/deletar/{id}(id=${exercicio.pkIdExercicio})}">Deletar</a>
+                            <a class="btn btn-info rounded" th:href="@{/exercicio/form/{id}(id=${exercicio.pkIdExercicio})}">Atualizar</a>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
-        <a class="nav-link" href="/unidade/form">Criar Unidade</a>
+    </div>
+    <div class="add-button">
+        <a class="btn btn-success" href="/unidade/form">Criar Unidade</a>
     </div>
 
     <a href="/ficha-exercicio/form" class="btn btn-secondary">Voltar para o Formulário</a>

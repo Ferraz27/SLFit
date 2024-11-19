@@ -5,11 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Inicial - GymBD</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
     <header class="bg-primary text-white p-3">
-        <h1 class="text-center">Bem-vindo ao LSfit</h1>
+        <h1 class="text-center">Bem-vindo ao LSFit</h1>
     </header>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -20,7 +36,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/alunos">alunos</a>
+                    <a class="nav-link" href="/alunos">Alunos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/instrutores">Instrutores</a>
@@ -47,41 +63,11 @@
     <main class="container mt-5">
         <section class="text-center mb-4">
             <h2>Sobre o LSFit</h2>
-            <p>O LSFit é um sistema de gestão para academias, facilitando o controle de alunos, instrutoreses e cursos de forma prática e organizada.</p>
-        </section>
-
-        <section class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title">Gerenciar Alunos</h3>
-                        <p class="card-text">Cadastre, atualize e visualize informações dos alunos matriculados.</p>
-                        <a href="/pagina-aluno" class="btn btn-primary">Acessar Alunos</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title">Gerenciar instrutores</h3>
-                        <p class="card-text">Gerencie o cadastro e as informações dos instrutores da academia.</p>
-                        <a href="/pagina-instrutores" class="btn btn-primary">Acessar instrutores</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title">Gerenciar Cursos</h3>
-                        <p class="card-text">Cadastre novos cursos e mantenha as informações atualizadas.</p>
-                        <a href="/pagina-curso" class="btn btn-primary">Acessar Cursos</a>
-                    </div>
-                </div>
-            </div>
+            <p>A LSFit é uma solução inovadora criada para simplificar a gestão de dados em academias e Redes. Com a crescente demanda por eficiência na administração de informações de clientes, planos de treino e preços, a LSFit surge como uma ferramenta abrangente e intuitiva que otimiza esses processos diários. A plataforma oferece acesso completo a dados de alunos, instrutores, gerentes, unidades, máquinas, exercícios e fichas de treino, permitindo que administradores e instrutores gerenciem os dados, criem e atualizem eles de forma facilitada.</p>
         </section>
     </main>
 
-    <footer class="bg-dark text-white text-center p-3 mt-5">
+    <footer class="bg-dark text-white text-center p-3">
         <p>&copy; 2024 LSFit. Todos os direitos reservados.</p>
     </footer>
 

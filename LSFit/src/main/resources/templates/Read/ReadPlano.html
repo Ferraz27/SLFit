@@ -4,51 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Plano</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-
         body {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
-
-
         main {
             flex: 1;
             padding: 20px;
         }
-
-
         footer {
             position: fixed;
             bottom: 0;
             width: 100%;
             text-align: center;
         }
+        .table-bordered {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .add-button {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
 
-<main>
+<main class="container mt-5">
     <h1>Criar Novo Plano</h1>
     <form action="/plano/salvar" method="post">
-        <label for="preco">Preço:</label>
-        <input type="text" id="preco" name="preco" required><br><br>
-
-        <label for="duracaoEmMeses">Duração (meses):</label>
-        <input type="number" id="duracaoEmMeses" name="duracaoEmMeses" required><br><br>
-
-        <label for="aluno">Aluno:</label>
-        <select name="alunoId" id="aluno" required>
-            <option value="" disabled selected>Selecione o Aluno</option>
-            <!-- Exibe os alunos disponíveis -->
-            <th:block th:each="aluno : ${alunos}">
-                <option th:value="${aluno.pkIdPessoa}" th:text="${aluno.nomePessoa}"></option>
-            </th:block>
-        </select><br><br>
-
-        <button type="submit">Salvar Plano</button>
+        <div class="form-group">
+            <label for="preco">Preço:</label>
+            <input type="text" id="preco" name="preco" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="duracaoEmMeses">Duração (meses):</label>
+            <input type="number" id="duracaoEmMeses" name="duracaoEmMeses" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="aluno">Aluno:</label>
+            <select name="alunoId" id="aluno" class="form-control" required>
+                <option value="" disabled selected>Selecione o Aluno</option>
+                <!-- Exibe os alunos disponíveis -->
+                <th:block th:each="aluno : ${alunos}">
+                    <option th:value="${aluno.pkIdPessoa}" th:text="${aluno.nomePessoa}"></option>
+                </th:block>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar Plano</button>
     </form>
+    <div class="add-button">
+        <a class="btn btn-success" href="/plano/form">Criar Plano</a>
+    </div>
 </main>
 
 <footer class="bg-dark text-white text-center p-3">

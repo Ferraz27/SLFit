@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listar Fichas de Exercício - GymBD</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .table-bordered {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .add-button {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
 
@@ -58,14 +67,18 @@
                     <td th:text="${ficha.aluno.nomePessoa}"></td>
                     <td th:text="${ficha.instrutor.nomePessoa}"></td>
                     <td>
-                        <a class="btn btn-info" th:href="@{/ficha/{id}(id=${ficha.pkIdFichaDeTreino})}">Ver Mais</a>
-                        <a class="btn btn-info" th:href="@{/ficha/deletar/{id}(id=${ficha.pkIdFichaDeTreino})}">Deletar</a>
-                        <a class="btn btn-info" th:href="@{/ficha/form/{id}(id=${ficha.pkIdFichaDeTreino})}">Atualizar</a>
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-info rounded mr-2" th:href="@{/ficha/{id}(id=${ficha.pkIdFichaDeTreino})}">Ver Mais</a>
+                            <a class="btn btn-danger rounded mr-2" th:href="@{/ficha/deletar/{id}(id=${ficha.pkIdFichaDeTreino})}">Deletar</a>
+                            <a class="btn btn-info rounded" th:href="@{/ficha/form/{id}(id=${ficha.pkIdFichaDeTreino})}">Atualizar</a>
+                        </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <a class="nav-link" href="/fichaExercicio/form">Criar Ficha de Treino</a>
+    </div>
+    <div class="add-button">
+        <a class="btn btn-success" href="/fichaExercicio/form">Criar Ficha de Treino</a>
     </div>
 </main>
 

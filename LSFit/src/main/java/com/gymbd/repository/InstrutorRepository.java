@@ -28,6 +28,8 @@ List<Instrutor> listarInstrutores();
 	@Query("SELECT i FROM Instrutor i WHERE i.pkIdPessoa = :id")
 	Instrutor findByIdd(@Param("id") Integer id);
 
+	@Query("SELECT i FROM Instrutor i WHERE i.salarioInstrutor > (SELECT AVG(i2.salarioInstrutor) FROM Instrutor i2)")
+    List<Instrutor> findInstrutoresWithSalaryAboveAverage();
 }
 	
 	

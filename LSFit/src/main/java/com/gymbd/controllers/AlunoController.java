@@ -32,6 +32,9 @@ import com.gymbd.service.MaquinaService;
 import com.gymbd.service.PessoaService;
 import com.gymbd.service.PlanoService;
 import com.gymbd.service.UnidadeService;
+import com.gymbd.repository.AlunoRepository;
+import com.gymbd.repository.InstrutorRepository;
+import com.gymbd.repository.ExercicioRepository;
 
 @Controller
 public class AlunoController {
@@ -128,44 +131,53 @@ public class AlunoController {
         instrutorService.deletarInstrutor(id);
         return "redirect:/instrutores"; // Redireciona para a lista de instrutores
     }
+    @GetMapping("/instrutores/salarioAcimaDaMedia")
+    public String instrutoresComSalarioAcimaDaMedia(Model model) {
+        List<Instrutor> instrutores = instrutorService.findInstrutoresWithSalaryAboveAverage();
+        model.addAttribute("instrutores", instrutores);
+        return "Read/ReadInstrutoresSalarioAcimaDaMedia";
+    }
     
     @GetMapping("/alunos")
     public String paginaAluno(Model model) {
         List<Aluno> alunos = alunoService.listarAlunos();
         model.addAttribute("alunos", alunos); 
         return "Read/ReadAluno";
-    }
-    
-    @PostMapping("aluno/salvar")
-    public String salvarAluno(@ModelAttribute Aluno aluno, @ModelAttribute Endereco endereco, @ModelAttribute Plano plano, Integer unidadeId) {
-    	Unidade unidade = unidadeService.buscarUnidadePorId(unidadeId);
-    	if (unidade != null) {
-            System.out.println("setou" + unidade.getPkIdUnidade());
+        }
+        
+        @PostMapping("aluno/salvar")
+        public String salvarAluno(@ModelAttribute Aluno aluno, @ModelAttribute Endereco endereco, @ModelAttribute Plano plano, Integer unidadeId, Integer indicacaoId) {
+        Unidade unidade = unidadeService.buscarUnidadePorId(unidadeId);
+        if (unidade != null) {
             plano.setUnidade(unidade);
         }
-    	java.time.LocalDate dataAtual = java.time.LocalDate.now();
-    	
-        alunoService.atualizarAluno(aluno);
+
+        Aluno indicacao = alunoService.buscarAlunoPorId(indicacaoId);
+        aluno.setIndicacao(indicacao);
+
+        java.time.LocalDate dataAtual = java.time.LocalDate.now();
+        
+        alunoService.salvarAluno(aluno);
         endereco.setFpkIdPessoa(aluno.getPkIdPessoa());
         plano.setFpkIdPlano(aluno.getPkIdPessoa());
         plano.setDataDeMatricula(dataAtual);
-        enderecoService.atualizarEndereco(endereco);      
+        enderecoService.salvarEndereco(endereco);      
         planoService.salvarPlano(plano);
         
         return "redirect:/alunos";
-    }
+        }
 
-    @PostMapping("aluno/atualizar/{id}")
-    public String atualizarAluno(@PathVariable Integer id, @ModelAttribute Aluno aluno, @ModelAttribute Endereco endereco, @ModelAttribute Plano plano, Integer unidadeId) {
+        @PostMapping("aluno/atualizar/{id}")
+        public String atualizarAluno(@PathVariable Integer id, @ModelAttribute Aluno aluno, @ModelAttribute Endereco endereco, @ModelAttribute Plano plano, Integer unidadeId, Integer indicacaoId) {
         Unidade unidade = unidadeService.buscarUnidadePorId(unidadeId);
         if (unidade != null) {
-            System.out.println("setou" + unidade.getPkIdUnidade());
             plano.setUnidade(unidade);
         }
         
-        // Usando java.time.LocalDate para obter a data atual
         java.time.LocalDate dataAtual = java.time.LocalDate.now();
 
+        Aluno indicacao = alunoService.buscarAlunoPorId(indicacaoId);
+        aluno.setIndicacao(indicacao);
         
         aluno.setPkIdPessoa(id);
         alunoService.atualizarAluno(aluno);
@@ -173,12 +185,12 @@ public class AlunoController {
         plano.setFpkIdPlano(aluno.getPkIdPessoa());
         plano.setDataDeMatricula(dataAtual);
         enderecoService.atualizarEndereco(endereco);      
-        planoService.salvarPlano(plano);
+        planoService.atualizarPlano(plano);
         return "redirect:/alunos";
-    }
+        }
 
-    @GetMapping("aluno/form/{id}")
-    public String mostrarFormularioAtualizacaoAluno(@PathVariable Integer id, Model model) {
+        @GetMapping("aluno/form/{id}")
+        public String mostrarFormularioAtualizacaoAluno(@PathVariable Integer id, Model model) {
         Aluno aluno = alunoService.buscarAlunoPorId(id);
         model.addAttribute("aluno", aluno);
         return "Update/UpdateAluno";
@@ -239,6 +251,13 @@ public class AlunoController {
             unidadeService.deletarUnidade(id);
         }
         return "redirect:/unidades";
+    }
+
+    @GetMapping("/unidade/maisAlunos")
+    public String unidadeComMaisAlunos(Model model) {
+        Object object = unidadeService.findUnidadeWithMostAlunos();
+        model.addAttribute("unidade", object);
+        return "Read/ReadUnidadeMaisAlunos";
     }
     
     @PostMapping("maquina/salvar")
@@ -394,7 +413,12 @@ public class AlunoController {
         model.addAttribute("fichaDeExercicio", fichaDeExercicio);
         return "Read/ReadDetalhesFichaDeExercicio";  // Página que mostra os detalhes da ficha (nome da view)
     }
-
+    @Autowired
+    AlunoRepository alunoRepository;
+    @Autowired 
+    InstrutorRepository instrutorRepository;
+    @Autowired
+    ExercicioRepository exercicioRepository;
     @PostMapping("fichaExercicio/atualizar/{id}")
     public String atualizarFichaDeExercicio(@PathVariable Integer id,
                                         @ModelAttribute FichaDeExercicio fichaDeExercicio,
@@ -402,7 +426,17 @@ public class AlunoController {
                                         @RequestParam Integer instrutorId,
                                         @RequestParam List<String> exercicios) {
     fichaDeExercicio.setPkIdFichaDeTreino(id);
-    fichaDeExercicioService.atualizarFichaDeExercicio(fichaDeExercicio, alunoId, instrutorId, exercicios);
+    Aluno aluno = alunoRepository.findById(alunoId).orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
+        Instrutor instrutor = instrutorRepository.findById(instrutorId).orElseThrow(() -> new RuntimeException("Instrutor não encontrado"));
+
+        // Buscar os novos exercícios com base na lista de nomes
+        List<Exercicio> listaExercicios = exercicioRepository.findByNomeExercicioIn(exercicios);
+
+        // Atualizar os dados da ficha de exercício
+        fichaDeExercicio.setAluno(aluno);
+        fichaDeExercicio.setInstrutor(instrutor);
+        fichaDeExercicio.setExercicios(listaExercicios);
+    fichaDeExercicioService.atualizarFichaDeExercicio(fichaDeExercicio);
     return "redirect:/fichas";
 }
 
@@ -431,7 +465,17 @@ public class AlunoController {
                                           @RequestParam Integer alunoId,
                                           @RequestParam Integer instrutorId,
                                           @RequestParam List<String> exercicios) {
-        fichaDeExercicioService.criarFichaDeExercicio(alunoId, instrutorId, exercicios);
+    	Aluno aluno = alunoRepository.findById(alunoId).orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
+        Instrutor instrutor = instrutorRepository.findById(instrutorId).orElseThrow(() -> new RuntimeException("Instrutor não encontrado"));
+
+        // Buscar os novos exercícios com base na lista de nomes
+        List<Exercicio> listaExercicios = exercicioRepository.findByNomeExercicioIn(exercicios);
+
+        // Atualizar os dados da ficha de exercício
+        fichaDeExercicio.setAluno(aluno);
+        fichaDeExercicio.setInstrutor(instrutor);
+        fichaDeExercicio.setExercicios(listaExercicios);
+        fichaDeExercicioService.salvarFichaDeExercicio(fichaDeExercicio);
         return "redirect:/home";
     }
 }

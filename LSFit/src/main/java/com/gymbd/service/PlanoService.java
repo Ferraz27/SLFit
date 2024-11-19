@@ -1,6 +1,7 @@
 package com.gymbd.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.gymbd.model.Aluno;
@@ -28,10 +29,17 @@ public class PlanoService {
     }
 
     // Salvar plano
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
     public void salvarPlano(Plano plano) {
-    		System.out.println("dei save no plano da unidade " + plano.getUnidade().getPkIdUnidade());
-        planoRepository.save(plano);
-        
+        String sql = "INSERT INTO plano (fpk_id_plano, duracao_meses, fk_id_unidade, data_matricula, preco) VALUES (?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, plano.getFpkIdPlano(), plano.getDuracaoEmMeses(), plano.getUnidade().getPkIdUnidade(), plano.getDataDeMatricula(), plano.getPreco());
+    }
+
+    public void atualizarPlano(Plano plano) {
+        String sql = "UPDATE plano SET duracao_meses = ?, fk_id_unidade = ?, data_matricula = ?, preco = ? WHERE fpk_id_plano = ?";
+        jdbcTemplate.update(sql, plano.getDuracaoEmMeses(), plano.getUnidade().getPkIdUnidade(), plano.getDataDeMatricula(), plano.getPreco(), plano.getFpkIdPlano());
     }
 
     

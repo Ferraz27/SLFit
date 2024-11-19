@@ -6,24 +6,26 @@
     <title>Instrutores - GymBD</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-
         body {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
-
-
         main {
             flex: 1;
         }
-
-
         footer {
             position: fixed;
             bottom: 0;
             width: 100%;
             text-align: center;
+        }
+        .table-bordered {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .add-button {
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -80,11 +82,9 @@
                     <th>CEP</th>
                     <th>Salario</th>
                     <th>Ações</th>
-
                 </tr>
             </thead>
             <tbody>
-
                 <tr th:each="instrutor : ${instrutores}">
                     <td th:text="${instrutor.pkIdPessoa}"></td> <!-- ID da Pessoa -->
                     <td th:text="${instrutor.nomePessoa}"></td> <!-- Nome -->
@@ -95,15 +95,22 @@
                     <td th:text="${instrutor.endereco.bairro}"></td> <!-- Bairro do Endereco -->
                     <td th:text="${instrutor.endereco.numero}"></td> <!-- Número do Endereco -->
                     <td th:text="${instrutor.endereco.cep}"></td> <!-- CEP do Endereco -->
-                    <td th:text="${instrutor.salarioInstrutor}"></td> <!-- CEP do Endereco -->
-                    <td>
-                        <a class="btn btn-info" th:href="@{/instrutor/deletar/{id}(id=${instrutor.pkIdPessoa})}">Deletar</a>
-                        <a class="btn btn-info" th:href="@{/instrutor/form/{id}(id=${instrutor.pkIdPessoa})}">Atualizar</a>
+                    <td th:text="${instrutor.salarioInstrutor}"></td> <!-- Salario -->
+                    <td class="text-center align-middle">
+                        <div class="btn-group d-flex align-items-center justify-content-center" role="group">
+                            <a class="btn btn-danger mr-2 rounded" th:href="@{/instrutor/deletar/{id}(id=${instrutor.pkIdPessoa})}">Deletar</a>
+                            <a class="btn btn-info rounded" th:href="@{/instrutor/form/{id}(id=${instrutor.pkIdPessoa})}">Atualizar</a>
+                        </div>
                     </td>
                 </tr>   
             </tbody>
         </table>
-        <a class="nav-link" href="/instrutor/form">Criar Instrutor</a>
+    </div>
+    <div class="add-button">
+        <a class="btn btn-success" href="/instrutor/form">Criar Instrutor</a>
+    </div>
+    <div class="add-button">
+        <a class="btn btn-success" href="/instrutores/salarioAcimaDaMedia">Ver instrutores com salários acima da média </a>
     </div>
 </main>
 

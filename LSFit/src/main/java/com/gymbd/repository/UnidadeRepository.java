@@ -29,6 +29,14 @@ public interface UnidadeRepository extends JpaRepository<Unidade, Integer> {
     void deleteById(@Param("id") Integer id);
 	
 	
+    @Query(value = "SELECT u.*, COUNT(a.fpk_id_aluno) as total_alunos " +
+    "FROM unidade u " +
+    "LEFT JOIN plano p ON u.pk_id_unidade = p.fk_id_unidade " +
+    "LEFT JOIN aluno a ON p.fpk_id_plano = a.fpk_id_aluno " +
+    "GROUP BY u.pk_id_unidade " +
+    "ORDER BY total_alunos DESC " +
+    "LIMIT 1", nativeQuery = true)
+    Object findUnidadeWithMostAlunos();
 	    
 
 }

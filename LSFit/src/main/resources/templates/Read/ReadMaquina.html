@@ -3,27 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Pessoas - GymBD</title>
+    <title>Lista de Maquinas - GymBD</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-
         body {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
-
-
         main {
             flex: 1;
         }
-
-
         footer {
             position: fixed;
             bottom: 0;
             width: 100%;
             text-align: center;
+        }
+        .table-bordered {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .add-button {
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -80,14 +82,18 @@
                     <td th:text="${maquina.pkIdMaquina}"></td> <!-- ID da Maquina -->
                     <td th:text="${maquina.nomeMaquina}"></td> <!-- Nome -->
                     <td th:text="${maquina.dataManutencao}"></td> <!-- Data de Manutenção -->
-                    <td>
-                        <a class="btn btn-info" th:href="@{/maquina/deletar/{id}(id=${maquina.pkIdMaquina})}">Deletar</a>
-                        <a class="btn btn-info" th:href="@{/maquina/form/{id}(id=${maquina.pkIdMaquina})}">Atualizar</a>
+                    <td class="text-center align-middle">
+                        <div class="btn-group d-flex align-items-center justify-content-center" role="group">
+                            <a class="btn btn-danger mr-2 rounded" th:href="@{/maquina/deletar/{id}(id=${maquina.pkIdMaquina})}">Deletar</a>
+                            <a class="btn btn-info rounded" th:href="@{/maquina/form/{id}(id=${maquina.pkIdMaquina})}">Atualizar</a>
+                        </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <a class="nav-link" href="/maquina/form">Criar Maquina</a>
+    </div>
+    <div class="add-button">
+        <a class="btn btn-success" href="/maquina/form">Criar Maquina</a>
     </div>
 </main>
 

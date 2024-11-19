@@ -9,6 +9,7 @@ import com.gymbd.repository.AlunoRepository;
 import com.gymbd.repository.ExercicioRepository;
 import com.gymbd.repository.InstrutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -30,27 +31,23 @@ public class FichaDeExercicioService {
     private ExercicioRepository exercicioRepository;
     
     // Criação de uma nova ficha de exercício, associando aluno, instrutor e exercícios
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    // Salvar ficha de exercício
     @Transactional
-    public FichaDeExercicio criarFichaDeExercicio(Integer alunoId, Integer instrutorId, List<String> exercicios) {
-        // Buscar o aluno e instrutor a partir dos seus IDs
-        Aluno aluno = alunoRepository.findById(alunoId).orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
-        Instrutor instrutor = instrutorRepository.findById(instrutorId).orElseThrow(() -> new RuntimeException("Instrutor não encontrado"));
+    public void salvarFichaDeExercicio(FichaDeExercicio fichaDeExercicio) {
+        String sql = "INSERT INTO ficha_de_treino (fk_id_instrutor, fk_id_aluno) VALUES (?, ?)";
+        jdbcTemplate.update(sql, fichaDeExercicio.getInstrutor().getPkIdPessoa(), fichaDeExercicio.getAluno().getPkIdPessoa());
 
-        // Criar a FichaDeExercicio
-        FichaDeExercicio fichaDeExercicio = new FichaDeExercicio();
-        fichaDeExercicio.setAluno(aluno);
-        fichaDeExercicio.setInstrutor(instrutor);
+        // Obter o ID gerado para a ficha de treino
+        Integer fichaId = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
 
-        // Buscar os Exercícios com base na lista de nomes
-        List<Exercicio> listaExercicios = exercicioRepository.findByNomeExercicioIn(exercicios);
-
-        // Associar os Exercícios à FichaDeExercicio
-        fichaDeExercicio.setExercicios(listaExercicios);
-
-        // Salvar a FichaDeExercicio (isso também salva a relação com os exercícios)
-        fichaDeExercicio = fichaDeExercicioRepository.save(fichaDeExercicio);
-
-        return fichaDeExercicio;
+        // Salvar os exercícios associados à ficha de treino
+        for (Exercicio exercicio : fichaDeExercicio.getExercicios()) {
+            String sqlExercicio = "INSERT INTO ficha_exercicio (fk_id_ficha_de_treino, fk_nome_exercicio) VALUES (?, ?)";
+            jdbcTemplate.update(sqlExercicio, fichaId, exercicio.getNomeExercicio());
+        }
     }
 
     // Recuperar os exercícios de uma ficha
@@ -82,22 +79,18 @@ public class FichaDeExercicioService {
     }
 
     @Transactional
-    public FichaDeExercicio atualizarFichaDeExercicio(FichaDeExercicio fichaDeExercicio, Integer alunoId, Integer instrutorId, List<String> novosExercicios) {
-        // Buscar o aluno e instrutor a partir dos seus IDs
-        Aluno aluno = alunoRepository.findById(alunoId).orElseThrow(() -> new RuntimeException("Aluno não encontrado"));
-        Instrutor instrutor = instrutorRepository.findById(instrutorId).orElseThrow(() -> new RuntimeException("Instrutor não encontrado"));
+    public void atualizarFichaDeExercicio(FichaDeExercicio fichaDeExercicio) {
+        String sql = "UPDATE ficha_de_treino SET fk_id_instrutor = ?, fk_id_aluno = ? WHERE pk_id_ficha_de_treino = ?";
+        jdbcTemplate.update(sql, fichaDeExercicio.getInstrutor().getPkIdPessoa(), fichaDeExercicio.getAluno().getPkIdPessoa(), fichaDeExercicio.getPkIdFichaDeTreino());
 
-        // Buscar os novos exercícios com base na lista de nomes
-        List<Exercicio> listaExercicios = exercicioRepository.findByNomeExercicioIn(novosExercicios);
+        // Remover os exercícios antigos
+        String sqlDeleteExercicios = "DELETE FROM ficha_exercicio WHERE fk_id_ficha_de_treino = ?";
+        jdbcTemplate.update(sqlDeleteExercicios, fichaDeExercicio.getPkIdFichaDeTreino());
 
-        // Atualizar os dados da ficha de exercício
-        fichaDeExercicio.setAluno(aluno);
-        fichaDeExercicio.setInstrutor(instrutor);
-        fichaDeExercicio.setExercicios(listaExercicios);
-
-        // Salvar a ficha de exercício atualizada
-        fichaDeExercicio = fichaDeExercicioRepository.save(fichaDeExercicio);
-
-        return fichaDeExercicio;
+        // Adicionar os novos exercícios
+        for (Exercicio exercicio : fichaDeExercicio.getExercicios()) {
+            String sqlExercicio = "INSERT INTO ficha_exercicio (fk_id_ficha_de_treino, fk_nome_exercicio) VALUES (?, ?)";
+            jdbcTemplate.update(sqlExercicio, fichaDeExercicio.getPkIdFichaDeTreino(), exercicio.getNomeExercicio());
+        }
     }
 }

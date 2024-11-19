@@ -7,6 +7,7 @@ import com.gymbd.repository.AlunoRepository;
 import com.gymbd.repository.MaquinaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -17,12 +18,19 @@ public class MaquinaService {
     private MaquinaRepository maquinaRepository;
 
     
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    // Salvar maquina
     public void salvarMaquina(Maquina maquina) {
-        maquinaRepository.save(maquina);
+        String sql = "INSERT INTO maquina (data_manutencao, nome_maquina) VALUES (?, ?)";
+        jdbcTemplate.update(sql, maquina.getDataManutencao(), maquina.getNomeMaquina());
     }
-    
+
+    // Atualizar maquina
     public void atualizarMaquina(Maquina maquina) {
-        maquinaRepository.save(maquina);
+        String sql = "UPDATE maquina SET data_manutencao = ?, nome_maquina = ? WHERE pk_id_maquina = ?";
+        jdbcTemplate.update(sql, maquina.getDataManutencao(), maquina.getNomeMaquina(), maquina.getPkIdMaquina());
     }
     
     public  List<Maquina> listarMaquinas() {

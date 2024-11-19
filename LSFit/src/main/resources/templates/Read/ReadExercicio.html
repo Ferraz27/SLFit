@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Exercícios - GymBD</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .table-bordered {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .add-button {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
 
@@ -63,14 +72,18 @@
                     <td th:text="${exercicio.numeroDeRepeticoes}"></td> <!-- Repetições -->
                     <td th:text="${exercicio.maquina.nomeMaquina}"></td> <!-- Nome da Máquina -->
                     <td th:text="${exercicio.tempoDescanso}"></td> <!-- Tempo de Descanso -->
-                    <td>
-                         <a class="btn btn-info" th:href="@{/exercicio/deletar/{id}(id=${exercicio.nomeExercicio})}">Deletar</a>
-                         <a class="btn btn-info" th:href="@{/exercicio/form/{id}(id=${exercicio.nomeExercicio})}">Atualizar</a>
+                    <td class="text-center align-middle">
+                        <div class="btn-group d-flex align-items-center justify-content-center" role="group">
+                            <a class="btn btn-danger mr-2 rounded" th:href="@{/exercicio/deletar/{id}(id=${exercicio.nomeExercicio})}">Deletar</a>
+                            <a class="btn btn-info rounded" th:href="@{/exercicio/form/{id}(id=${exercicio.nomeExercicio})}">Atualizar</a>
+                        </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <a class="nav-link" href="/exercicio/form">Criar Exercicio</a>
+    </div>
+    <div class="add-button">
+        <a class="btn btn-success" href="/exercicio/form">Criar Exercicio</a>
     </div>
 </main>
 

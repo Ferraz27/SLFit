@@ -5,8 +5,12 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
+
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
@@ -43,15 +47,18 @@ public class Aluno extends Pessoa {
 		this.plano = plano;
 	}
 
-	public FichaDeExercicio getFichaDeExercicio() {
-		return fichaDeExercicio;
+	
+
+	@OneToMany(mappedBy = "aluno",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<FichaDeExercicio> fichasDeExercicios;
+
+
+	public List<FichaDeExercicio> getFichasDeExercicios() {
+		return fichasDeExercicios;
 	}
 
-	public void setFichaDeExercicio(FichaDeExercicio fichaDeExercicio) {
-		this.fichaDeExercicio = fichaDeExercicio;
+	public void setFichasDeExercicios(List<FichaDeExercicio> fichasDeExercicios) {
+		this.fichasDeExercicios = fichasDeExercicios;
 	}
-
-	@OneToOne(mappedBy = "aluno",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private FichaDeExercicio fichaDeExercicio;
 }
 
